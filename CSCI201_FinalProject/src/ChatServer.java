@@ -175,7 +175,7 @@ import javax.swing.JTextField;
  * line beginning with "MESSAGE " then all characters following
  * this string should be displayed in its message area.
  */
-public class ChatClient {
+public class ChatServer {
 
     BufferedReader in;
     PrintWriter out;
@@ -200,7 +200,7 @@ public class ChatClient {
      * only becomes editable AFTER the client receives the NAMEACCEPTED
      * message from the server.
      */
-    public ChatClient() {
+    public ChatServer() {
     	
     	frame.setSize(400, 400);
 		enterP.setLayout((LayoutManager) new BoxLayout(enterP, BoxLayout.X_AXIS));
@@ -322,7 +322,7 @@ public class ChatClient {
      * Runs the client as an application with a closeable frame.
      */
     public static void main(String[] args) throws Exception {
-        ChatClient client = new ChatClient();
+        ChatServer client = new ChatServer();
         client.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         client.frame.setVisible(true);
         client.run();
