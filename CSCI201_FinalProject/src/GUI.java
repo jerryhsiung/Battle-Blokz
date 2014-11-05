@@ -17,6 +17,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
+import javax.swing.JPasswordField;
+import javax.swing.SwingConstants;
 
 public class GUI extends JFrame{
 	static JPanel cardPanel = new JPanel();
@@ -24,6 +26,11 @@ public class GUI extends JFrame{
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
+	private JPasswordField passwordField;
+	private JTextField textField_3;
+	private JPasswordField passwordField_1;
+	private JTextField textField_4;
+	private JTextField textField_5;
 
 	public static void main(String[] args) {
 		GUI window = new GUI();
@@ -42,10 +49,134 @@ public class GUI extends JFrame{
 		cardPanel.setLayout(new CardLayout());
 		
 		JPanel startPanel = new JPanel();
+		JPanel createUser = new JPanel();
+		JPanel forgotUser = new JPanel();
+		JPanel playPanel = new JPanel();
+		JPanel helpPanel = new JPanel();
 		JPanel teamPanel = new JPanel();
 		JPanel gamePanel = new JPanel();
 		
 		cardPanel.add(startPanel, "Start");
+		cardPanel.add(createUser, "Create");
+		createUser.setLayout(null);
+		
+		JLabel lblUsername = new JLabel("Username:");
+		lblUsername.setBounds(265, 206, 84, 16);
+		createUser.add(lblUsername);
+		
+		JLabel lblPassword_1 = new JLabel("Password:");
+		lblPassword_1.setBounds(265, 250, 84, 16);
+		createUser.add(lblPassword_1);
+		
+		JLabel lblCreateANew = new JLabel("Create A New User", JLabel.CENTER);
+		lblCreateANew.setFont(new Font("Tahoma", Font.BOLD, 42));
+		lblCreateANew.setBounds(0, 82, 782, 92);
+		createUser.add(lblCreateANew);
+		
+		passwordField_1 = new JPasswordField();
+		passwordField_1.setBounds(334, 247, 136, 22);
+		createUser.add(passwordField_1);
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(334, 203, 136, 22);
+		createUser.add(textArea);
+		
+		JButton btnCreate = new JButton("Create");
+		btnCreate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cardLayout.show(cardPanel, "Play");
+			}
+		});
+		btnCreate.setBounds(265, 332, 97, 25);
+		createUser.add(btnCreate);
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cardLayout.show(cardPanel, "Start");
+			}
+		});
+		btnCancel.setBounds(374, 332, 97, 25);
+		createUser.add(btnCancel);
+		
+		JLabel lblEmail = new JLabel("Email:");
+		lblEmail.setBounds(265, 291, 50, 16);
+		createUser.add(lblEmail);
+		
+		textField_4 = new JTextField();
+		textField_4.setBounds(305, 288, 165, 22);
+		createUser.add(textField_4);
+		textField_4.setColumns(10);
+		cardPanel.add(forgotUser, "Forgot");
+		forgotUser.setLayout(null);
+		
+		JLabel label = new JLabel("Forgot Login", SwingConstants.CENTER);
+		label.setFont(new Font("Tahoma", Font.BOLD, 42));
+		label.setBounds(0, 74, 782, 92);
+		forgotUser.add(label);
+		
+		JLabel lblEmail_1 = new JLabel("Email:");
+		lblEmail_1.setBounds(263, 198, 56, 16);
+		forgotUser.add(lblEmail_1);
+		
+		textField_5 = new JTextField();
+		textField_5.setBounds(304, 195, 213, 22);
+		forgotUser.add(textField_5);
+		textField_5.setColumns(10);
+		
+		JButton btnSendLogin = new JButton("Send Login");
+		btnSendLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnSendLogin.setBounds(289, 255, 97, 25);
+		forgotUser.add(btnSendLogin);
+		
+		JButton btnCancel_1 = new JButton("Cancel");
+		btnCancel_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cardLayout.show(cardPanel, "Start");
+			}
+		});
+		btnCancel_1.setBounds(398, 255, 97, 25);
+		forgotUser.add(btnCancel_1);
+		cardPanel.add(playPanel, "Play");
+		playPanel.setLayout(null);
+		
+		JButton btnNewButton_2 = new JButton("Play");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cardLayout.show(cardPanel, "Team");
+			}
+		});
+		btnNewButton_2.setBounds(297, 228, 199, 82);
+		playPanel.add(btnNewButton_2);
+		
+		JButton button_3 = new JButton("Help");
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cardLayout.show(cardPanel, "Help");
+			}
+		});
+		button_3.setBounds(297, 323, 199, 82);
+		playPanel.add(button_3);
+		
+		JButton button_4 = new JButton("Quit");
+		button_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(1);
+			}
+		});
+		button_4.setBounds(297, 418, 199, 82);
+		playPanel.add(button_4);
+		cardPanel.add(helpPanel, "Help");
+		helpPanel.setLayout(null);
+		
+		JLabel label_1 = new JLabel("Help", SwingConstants.CENTER);
+		label_1.setFont(new Font("Tahoma", Font.BOLD, 42));
+		label_1.setBounds(0, 34, 782, 92);
+		helpPanel.add(label_1);
 		cardPanel.add(teamPanel, "Team");
 		cardPanel.add(gamePanel, "Game");
 		startPanel.setLayout(null);
@@ -57,13 +188,13 @@ public class GUI extends JFrame{
 		lblTetris.setBounds(0, 252, 782, 50);
 		startPanel.add(lblTetris);
 		
-		JButton btnNewButton = new JButton("Play Game");
+		JButton btnNewButton = new JButton("Login");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				cardLayout.show(cardPanel, "Team");
+				cardLayout.show(cardPanel, "Play");
 			}
 		});
-		btnNewButton.setBounds(306, 360, 175, 65);
+		btnNewButton.setBounds(306, 435, 175, 41);
 		startPanel.add(btnNewButton);
 		
 		JButton button = new JButton("Quit");
@@ -72,8 +203,43 @@ public class GUI extends JFrame{
 				System.exit(1);
 			}
 		});
-		button.setBounds(306, 435, 175, 65);
+		button.setBounds(306, 597, 175, 41);
 		startPanel.add(button);
+		
+		JButton button_1 = new JButton("Create New User");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cardLayout.show(cardPanel, "Create");
+			}
+		});
+		button_1.setBounds(306, 489, 175, 41);
+		startPanel.add(button_1);
+		
+		JButton button_2 = new JButton("Forgot Login");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cardLayout.show(cardPanel, "Forgot");
+			}
+		});
+		button_2.setBounds(306, 543, 175, 41);
+		startPanel.add(button_2);
+		
+		JLabel lblUser = new JLabel("Username:");
+		lblUser.setBounds(306, 371, 75, 16);
+		startPanel.add(lblUser);
+		
+		JLabel lblPassword = new JLabel("Password:");
+		lblPassword.setBounds(306, 406, 75, 16);
+		startPanel.add(lblPassword);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(367, 400, 114, 22);
+		startPanel.add(passwordField);
+		
+		textField_3 = new JTextField();
+		textField_3.setBounds(373, 368, 108, 22);
+		startPanel.add(textField_3);
+		textField_3.setColumns(10);
 		teamPanel.setLayout(null);
 		
 		JLabel lblTeam = new JLabel("Team 1", JLabel.CENTER);
