@@ -1,0 +1,285 @@
+package tetris;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.swing.JPanel;
+
+public class gui extends JPanel {
+	
+	static int tetrisBoardWidthSquare = 10; 
+	static int tetrisBoardHeightSquare = 24;
+	int tileLength = 30; 
+	int tetrisBoardWidth = 10*tileLength;
+	int tetrisBoardHeight = 22*tileLength;
+	
+	
+	public static tileData [] tetrisBoard = new tileData[tetrisBoardWidthSquare*tetrisBoardHeightSquare];
+	
+	// Current Piece Info
+	shapes currentPiece = new shapes();
+	static int currentPieceX = 0;
+	static int currentPieceY = 4;
+	
+	boolean dropped = false;
+	boolean gameOver = false;
+	
+	Timer timer = new Timer();
+	
+	public gui() {
+		this.setBackground(Color.GRAY);
+		keyboardListener kl = new keyboardListener();
+		
+		// Initialize tetrisBoard 
+		for(int i = 0; i < tetrisBoardWidthSquare*tetrisBoardHeightSquare; i++) {
+			tetrisBoard[i] = new tileData();
+		}
+				
+		nextPiece();
+		
+		timer.scheduleAtFixedRate(new TimerTask() {
+			public void run() {
+				repaint();
+				if(!gameOver) {
+			        if (dropped) {
+			            nextPiece();
+			        } else {
+			            downOne();
+			        }
+				}
+				else {
+					gui.this.removeKeyListener(kl);
+				}
+			}
+		}, 400, 400);
+		
+		setFocusable(true);
+		this.addKeyListener(kl);
+	}
+	
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		
+		// DRAW EXISTING BOARD
+		fillGrid(g);
+		
+		// DRAW CURRENT SHAPE
+		if(currentPiece.hasShape()) {
+			drawShape(g, currentPieceX, currentPieceY, currentPiece);
+		}
+	}
+	
+	public void fillGrid(Graphics g) {
+		
+		// starts at 4 because 4 empty rows
+		for(int i = 4; i < tetrisBoardHeightSquare; i++) {
+			for(int j = 0; j < tetrisBoardWidthSquare; j++) {
+
+				drawSquare(g, j, i, tetrisBoard[i*tetrisBoardWidthSquare + j].getColor());
+			}
+		}
+		
+		
+	}
+	
+	public void drawSquare(Graphics g, int gridX, int gridY, Color c) {
+		g.setColor(c);
+		
+//		g.fillRect(gridX*tileLength, gridY*tileLength, tileLength, tileLength);
+		// GRIDY - 4 because 4 invisible rows
+		g.fillRoundRect(gridX*tileLength, (gridY-4)*tileLength, tileLength, tileLength, 4, 4);
+		
+		g.setColor(c.darker());
+//		g.drawRect(gridX*tileLength, gridY*tileLength, tileLength, tileLength);
+		// GRIDY - 4 because 4 invisible rows
+		g.drawRoundRect(gridX*tileLength, (gridY-4)*tileLength, tileLength, tileLength, 4, 4);
+
+	}
+	
+	public void drawShape(Graphics g, int pieceX, int pieceY, shapes currentPiece) {
+		int [][] temp = currentPiece.getShapeXY();
+		
+		for(int i = 0; i < 4; i++) {
+			drawSquare(g, pieceX+temp[i][0], pieceY-temp[i][1], currentPiece.getColor());
+		}
+	}
+	
+	public void downOne() {
+		if(!canMove(currentPieceX, currentPieceY+1, currentPiece)) {
+			pieceDropped();	
+		}
+	}
+	
+	public boolean canMove(int newX, int newY, shapes currentPiece) {
+		
+		int[][] temp = currentPiece.getShapeXY();
+		
+		
+
+		// CHECK ALL 4 TILES OF SHAPE
+		for(int i = 0; i < 4; i++) {
+			// CHECK OUT OF BOUNDS OR BOTTOM
+			if(((newY-temp[i][1])*tetrisBoardWidthSquare + newX+temp[i][0]) >= tetrisBoardWidthSquare*tetrisBoardHeightSquare) {
+				return false;
+			}
+			// CHECK TILE BELOW
+			else if(tetrisBoard[(newY-temp[i][1])*tetrisBoardWidthSquare + newX+temp[i][0]].isFull()) {
+				return false;
+			}		
+		}
+		
+		// SET NEW XY 
+		currentPieceX = newX;
+		currentPieceY = newY;
+		
+		
+		return true;
+	}
+	
+	public void moveLeft() {
+		int[][] temp = currentPiece.getShapeXY();
+
+		for(int i = 0; i < 4; i++) {
+			if((currentPieceX+temp[i][0])%tetrisBoardWidthSquare == 0) {
+				return;
+			}
+		}
+		
+        canMove(currentPieceX-1, currentPieceY, currentPiece);
+	}
+	
+	public void moveRight() {
+		int[][] temp = currentPiece.getShapeXY();
+
+		for(int i = 0; i < 4; i++) {
+			if((currentPieceX+temp[i][0])%tetrisBoardWidthSquare == 9) {
+				return;
+			}
+		}
+		
+        canMove(currentPieceX+1, currentPieceY, currentPiece);
+	}
+	
+	public void pieceDropped() {
+		
+		int[][] temp = currentPiece.getShapeXY();
+		
+		// SET PIECE TO BOARD
+		for(int i = 0; i < 4; i++) {
+			tetrisBoard[(currentPieceY-temp[i][1])*tetrisBoardWidthSquare + currentPieceX+temp[i][0]].setIsFull(true);
+			tetrisBoard[(currentPieceY-temp[i][1])*tetrisBoardWidthSquare + currentPieceX+temp[i][0]].setColor(currentPiece.getColor());
+		}
+				
+		// RESET CURRENT PIECE DATA
+		currentPiece.setNoShape();
+		
+		dropped = true;
+		
+		// REMOVE LINES
+		removeLines();
+		
+	}
+	
+	public void removeLines() {
+		
+		for(int i = 0; i < tetrisBoardHeightSquare; i++) {
+			boolean full = true;
+			for(int j = 0; j < tetrisBoardWidthSquare; j++) {
+				if(!tetrisBoard[i*tetrisBoardWidthSquare + j].isFull()) {
+					full = false;
+		//			break;
+				}
+			}
+			if(full) {
+				// REPLACE ROWS BELOW WITH ROWS ABOVE
+				for(int j = i; j > 0; j--) {
+					for(int x = 0; x < tetrisBoardWidthSquare; x++) {
+						tetrisBoard[j*tetrisBoardWidthSquare + x] = tetrisBoard[(j-1)*tetrisBoardWidthSquare + x];
+					}
+				}
+				
+				// SET ALL OF ROW 0 TO 0 (RESET)
+				for(int x = 0; x < 10; x++) {
+					tetrisBoard[0].reset();
+				}
+			}
+		}
+		
+		repaint();
+	}
+	
+	public void nextPiece() {
+		
+		currentPiece.setRandomPiece();
+		currentPieceX = 4;
+		currentPieceY = 2;
+		dropped = false;
+		int attempts;
+		
+		if(currentPiece.isLine()) {
+			attempts = 4;
+		}
+		else {
+			attempts = 2;
+		}
+		
+		for(int i = 0; i < attempts; i++) {
+	        if (!canMove(currentPieceX, currentPieceY+1, currentPiece)) {
+	        	System.out.println("GAME OVER");
+	            gameOver = true;
+	            break;
+	        }
+		}
+		
+	}        
+	
+	class keyboardListener extends KeyAdapter {
+		
+		public void keyPressed(KeyEvent ke) {
+
+	    	// CHECK IF A PIECE EXISTS
+			if (!currentPiece.hasShape()) {  
+                return;
+            }
+			
+	        int keycode = ke.getKeyCode();
+
+	        switch (keycode) {
+		        case KeyEvent.VK_LEFT:
+		        	moveLeft();
+		        	repaint();
+		            break;
+		        case KeyEvent.VK_RIGHT:
+		        	moveRight();
+		        	repaint();
+		            break;
+		        case KeyEvent.VK_DOWN:
+		        	downOne();
+		            repaint();
+		        	break;
+		        case KeyEvent.VK_UP:
+		            currentPiece.rotate();
+		            repaint();
+		            break;
+		        case KeyEvent.VK_SPACE:
+		            while(true){
+		            	if(!canMove(currentPieceX, currentPieceY+1, currentPiece)) {
+		            		break;
+		            	}
+		            }
+		            pieceDropped();
+		            repaint();
+		            break;
+
+	        }
+		}
+	}
+}
+
+    
+
