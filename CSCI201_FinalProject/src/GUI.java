@@ -49,6 +49,7 @@ public class GUI extends JFrame{
 	public static void main(String[] args) throws IOException {
 		GUI window = new GUI();
 		window.run();
+		window.chat();
 	}
 	
 	public GUI()
@@ -379,15 +380,19 @@ public class GUI extends JFrame{
 	}
 	
 	private void run() throws IOException {
+		// Make connection and initialize streams
+//      String serverAddress = getServerAddress();
+  	String serverAddress = "localhost";
+      Socket socket = new Socket(serverAddress, 9001);
+      in = new BufferedReader(new InputStreamReader(
+          socket.getInputStream()));
+      out = new PrintWriter(socket.getOutputStream(), true);
 
-        // Make connection and initialize streams
-//        String serverAddress = getServerAddress();
-    	String serverAddress = "localhost";
-        Socket socket = new Socket(serverAddress, 9001);
-        in = new BufferedReader(new InputStreamReader(
-            socket.getInputStream()));
-        out = new PrintWriter(socket.getOutputStream(), true);
+	}
+	
+	private void chat() throws IOException {
 
+        
         // Process all messages from server, according to the protocol.
         while (true) {
             String line = in.readLine();
