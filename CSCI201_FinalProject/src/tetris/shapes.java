@@ -1,4 +1,3 @@
-package tetris;
 
 import java.awt.Color;
 import java.util.Random;
@@ -54,8 +53,17 @@ public class shapes {
     		}
     	}
     	
-		Color[] list = {Color.CYAN, Color.YELLOW, Color.MAGENTA, Color.GREEN, Color.RED, Color.BLUE, Color.ORANGE};
-		shapeColor = list[p.ordinal()];
+    	Color[] list = { 
+    			new Color(0,128,255) ,
+    			new Color(255,255,0) ,
+    			new Color(100,23,255) , 
+    			new Color(85,255,0) , 
+    			new Color(255,0,0) , 
+    			new Color(255,117,164) , 
+    			new Color(255,172,100) , 
+    	};
+    	
+    	shapeColor = list[p.ordinal()];
 		
 		pieceType = p;
     }

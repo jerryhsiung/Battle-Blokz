@@ -1,7 +1,9 @@
-package tetris;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Stroke;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -71,6 +73,7 @@ public class gui extends JPanel {
 		// DRAW CURRENT SHAPE
 		if(currentPiece.hasShape()) {
 			drawShape(g, currentPieceX, currentPieceY, currentPiece);
+			drawShadow(g, currentPieceX, currentPieceY, currentPiece);
 		}
 	}
 	
@@ -88,17 +91,26 @@ public class gui extends JPanel {
 	}
 	
 	public void drawSquare(Graphics g, int gridX, int gridY, Color c) {
-		g.setColor(c);
+		Graphics2D g2d = (Graphics2D) g;
+		
+		float thickness = 6;
+		Stroke oldStroke = g2d.getStroke();
+		
+		g2d.setStroke(new BasicStroke(thickness));
+		
+		g2d.setColor(c);
 		
 //		g.fillRect(gridX*tileLength, gridY*tileLength, tileLength, tileLength);
 		// GRIDY - 4 because 4 invisible rows
-		g.fillRoundRect(gridX*tileLength, (gridY-4)*tileLength, tileLength, tileLength, 4, 4);
+		g2d.fillRect(gridX*tileLength, (gridY-4)*tileLength, tileLength, tileLength);
 		
-		g.setColor(c.darker());
+		g2d.setColor(c.darker());
 //		g.drawRect(gridX*tileLength, gridY*tileLength, tileLength, tileLength);
 		// GRIDY - 4 because 4 invisible rows
-		g.drawRoundRect(gridX*tileLength, (gridY-4)*tileLength, tileLength, tileLength, 4, 4);
+		g2d.drawRect(gridX*tileLength+3, (gridY-4)*tileLength+3, tileLength-6, tileLength-6);
 
+		g2d.setStroke(oldStroke);
+		
 	}
 	
 	public void drawShape(Graphics g, int pieceX, int pieceY, shapes currentPiece) {
@@ -107,6 +119,41 @@ public class gui extends JPanel {
 		for(int i = 0; i < 4; i++) {
 			drawSquare(g, pieceX+temp[i][0], pieceY-temp[i][1], currentPiece.getColor());
 		}
+	}
+	
+	public void drawShadow(Graphics g, int pieceX, int pieceY, shapes currentPiece) {
+		int [][] temp = currentPiece.getShapeXY();
+		
+		boolean check = true;
+		int tempX = pieceX;
+		int tempY = pieceY;
+		
+		while(check) {
+			
+			// CHECK ALL 4 TILES OF SHAPE
+			for(int i = 0; i < 4; i++) {
+				// CHECK OUT OF BOUNDS OR BOTTOM
+				if(((tempY+1-temp[i][1])*tetrisBoardWidthSquare + tempX+temp[i][0]) >= tetrisBoardWidthSquare*tetrisBoardHeightSquare) {
+					check = false;
+					break;
+				}
+				// CHECK TILE BELOW
+				else if(tetrisBoard[(tempY+1-temp[i][1])*tetrisBoardWidthSquare + tempX+temp[i][0]].isFull()) {
+					check = false;
+					break;
+				}		
+			}
+			
+			if(check) {
+				// SET NEW Y 
+				tempY = tempY +1;;
+			}
+		}
+		
+		for(int i = 0; i < 4; i++) {
+			drawSquare(g, tempX+temp[i][0], tempY-temp[i][1], Color.WHITE);
+		}
+		
 	}
 	
 	public void downOne() {
