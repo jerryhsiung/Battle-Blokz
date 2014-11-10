@@ -29,6 +29,9 @@ import javax.swing.border.Border;
 import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
 
+import tetris.gui;
+import tetris.main;
+
 public class GUI extends JFrame{
 	static JPanel cardPanel = new JPanel();
 	static CardLayout cardLayout;
@@ -45,6 +48,10 @@ public class GUI extends JFrame{
 	//server/client
 	BufferedReader in;
     PrintWriter out;
+    
+    //tetris game
+    public static JLabel jl;
+	public static int lines;
 
 	public static void main(String[] args) throws IOException {
 		GUI window = new GUI();
@@ -316,10 +323,14 @@ public class GUI extends JFrame{
 		
 		Border blackline = BorderFactory.createLineBorder(Color.black);
 		
-		JPanel tetrisPanel = new JPanel();
-		tetrisPanel.setBorder(blackline);
-		tetrisPanel.setBounds(12, 13, 450, 729);
-		gamePanel.add(tetrisPanel);
+//		JPanel tetrisPanel = new JPanel();
+//		tetrisPanel.setBorder(blackline);
+//		tetrisPanel.setBounds(12, 13, 450, 729);
+//		gamePanel.add(tetrisPanel);
+		gui gameboard = new gui();
+		gameboard.setBounds(12, 13, 361, 720);
+		gamePanel.add(gameboard);
+		gamePanel.requestFocus();
 		
 		JTextArea opponentTextArea = new JTextArea();
 		opponentTextArea.setEditable(false);
@@ -376,7 +387,18 @@ public class GUI extends JFrame{
         	}
 		});
 		
+		//tetris game play
+		lines = 0;
+		jl = new JLabel("Lines Cleared - " + lines);
+		
 		setVisible(true);
+		gameboard.requestFocusInWindow();
+	}
+	
+	//tetris game
+	public static void updateLabel() {
+		lines++;
+		jl.setText("Lines Cleared - " + lines);
 	}
 	
 	private void run() throws IOException {
