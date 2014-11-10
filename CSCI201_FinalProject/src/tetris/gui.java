@@ -16,7 +16,7 @@ public class gui extends JPanel {
 	
 	static int tetrisBoardWidthSquare = 10; 
 	static int tetrisBoardHeightSquare = 24;
-	int tileLength = 30; 
+	int tileLength = 36; 
 	int tetrisBoardWidth = 10*tileLength;
 	int tetrisBoardHeight = 22*tileLength;
 	

@@ -13,12 +13,30 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
+
+import tetris.gui;
+import tetris.main;
 
 public class GUI extends JFrame{
 	static JPanel cardPanel = new JPanel();
@@ -31,9 +49,20 @@ public class GUI extends JFrame{
 	private JPasswordField passwordField_1;
 	private JTextField textField_4;
 	private JTextField textField_5;
+	private JTextArea chatTextArea;
+	
+	//server/client
+	BufferedReader in;
+    PrintWriter out;
+    
+    //tetris game
+    public static JLabel jl;
+	public static int lines;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		GUI window = new GUI();
+		window.run();
+		window.chat();
 	}
 	
 	public GUI()
@@ -300,10 +329,17 @@ public class GUI extends JFrame{
 		
 		Border blackline = BorderFactory.createLineBorder(Color.black);
 		
-		JPanel tetrisPanel = new JPanel();
-		tetrisPanel.setBorder(blackline);
-		tetrisPanel.setBounds(12, 13, 450, 729);
-		gamePanel.add(tetrisPanel);
+//		JPanel tetrisPanel = new JPanel();
+//		tetrisPanel.setBorder(blackline);
+//		tetrisPanel.setBounds(12, 13, 450, 729);
+//		gamePanel.add(tetrisPanel);
+		gui gameboard = new gui();
+		gameboard.setBounds(12, 10, 361, 720);
+		gamePanel.add(gameboard);
+		
+		jl = new JLabel("Lines Cleared - " + lines);
+		jl.setBounds(12, 730, 400, 30);
+		gamePanel.add(jl);
 		
 		JTextArea opponentTextArea = new JTextArea();
 		opponentTextArea.setEditable(false);
@@ -319,7 +355,7 @@ public class GUI extends JFrame{
 		partnerTextArea.setBounds(482, 195, 288, 32);
 		gamePanel.add(partnerTextArea);
 		
-		JTextArea chatTextArea = new JTextArea();
+		chatTextArea = new JTextArea();
 		chatTextArea.setEditable(false);
 		chatTextArea.setBounds(482, 338, 288, 349);
 		
@@ -331,15 +367,80 @@ public class GUI extends JFrame{
 		lblChatBox.setBounds(482, 310, 200, 22);
 		gamePanel.add(lblChatBox);
 		
+		//for chat
 		textField_2 = new JTextField();
 		textField_2.setBounds(482, 692, 206, 50);
 		gamePanel.add(textField_2);
 		textField_2.setColumns(10);
+		textField_2.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				String text = textField_2.getText();
+				int keyCode = e.getKeyCode();
+				if(keyCode == KeyEvent.VK_ENTER) {
+					out.println(text);
+					textField_2.setText("");
+				}
+			}
+		});
 		
 		JButton btnSend = new JButton("Send");
 		btnSend.setBounds(690, 693, 80, 49);
 		gamePanel.add(btnSend);
 		
+		btnSend.addMouseListener(new MouseAdapter(){
+			public void mousePressed(MouseEvent e){
+				String text = textField_2.getText();
+				out.println(text);
+				textField_2.setText("");
+        		
+        	}
+		});
+		
+		//tetris game play
+		lines = 0;
+		
 		setVisible(true);
+		setFocusable(false);
+//		gameboard.requestFocus();
+//		gameboard.requestFocusInWindow();
+//		gamePanel.requestFocus();
+//		gamePanel.requestFocusInWindow();
+		addFocusListener(new FocusAdapter(){
+			public void focusGained(FocusEvent ae){
+				gameboard.requestFocus();
+				gameboard.requestFocusInWindow();
+				gamePanel.requestFocus();
+				gamePanel.requestFocusInWindow();
+			}
+		});
 	}
+	
+	//tetris game
+	public static void updateLabel() {
+		lines++;
+		jl.setText("Lines Cleared - " + lines);
+	}
+	
+	private void run() throws IOException {
+		// Make connection and initialize streams
+//      String serverAddress = getServerAddress();
+  	String serverAddress = "localhost";
+      Socket socket = new Socket(serverAddress, 9001);
+      in = new BufferedReader(new InputStreamReader(
+          socket.getInputStream()));
+      out = new PrintWriter(socket.getOutputStream(), true);
+
+	}
+	
+	private void chat() throws IOException {
+
+        
+        // Process all messages from server, according to the protocol.
+        while (true) {
+            String line = in.readLine();
+        	if (line.startsWith("MESSAGE")) {
+        		chatTextArea.append(line.substring(8) + "\n");
+            }
+        }
+    }
 }
