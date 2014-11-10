@@ -13,10 +13,16 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -328,9 +334,12 @@ public class GUI extends JFrame{
 //		tetrisPanel.setBounds(12, 13, 450, 729);
 //		gamePanel.add(tetrisPanel);
 		gui gameboard = new gui();
-		gameboard.setBounds(12, 13, 361, 720);
+		gameboard.setBounds(12, 10, 361, 720);
 		gamePanel.add(gameboard);
-		gamePanel.requestFocus();
+		
+		jl = new JLabel("Lines Cleared - " + lines);
+		jl.setBounds(12, 730, 400, 30);
+		gamePanel.add(jl);
 		
 		JTextArea opponentTextArea = new JTextArea();
 		opponentTextArea.setEditable(false);
@@ -389,10 +398,21 @@ public class GUI extends JFrame{
 		
 		//tetris game play
 		lines = 0;
-		jl = new JLabel("Lines Cleared - " + lines);
 		
 		setVisible(true);
-		gameboard.requestFocusInWindow();
+		setFocusable(false);
+//		gameboard.requestFocus();
+//		gameboard.requestFocusInWindow();
+//		gamePanel.requestFocus();
+//		gamePanel.requestFocusInWindow();
+		addFocusListener(new FocusAdapter(){
+			public void focusGained(FocusEvent ae){
+				gameboard.requestFocus();
+				gameboard.requestFocusInWindow();
+				gamePanel.requestFocus();
+				gamePanel.requestFocusInWindow();
+			}
+		});
 	}
 	
 	//tetris game
