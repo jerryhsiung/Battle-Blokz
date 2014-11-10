@@ -13,6 +13,15 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
@@ -31,9 +40,15 @@ public class GUI extends JFrame{
 	private JPasswordField passwordField_1;
 	private JTextField textField_4;
 	private JTextField textField_5;
+	private JTextArea chatTextArea;
+	
+	//server/client
+	BufferedReader in;
+    PrintWriter out;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		GUI window = new GUI();
+		window.run();
 	}
 	
 	public GUI()
@@ -319,7 +334,7 @@ public class GUI extends JFrame{
 		partnerTextArea.setBounds(482, 195, 288, 32);
 		gamePanel.add(partnerTextArea);
 		
-		JTextArea chatTextArea = new JTextArea();
+		chatTextArea = new JTextArea();
 		chatTextArea.setEditable(false);
 		chatTextArea.setBounds(482, 338, 288, 349);
 		
@@ -331,15 +346,54 @@ public class GUI extends JFrame{
 		lblChatBox.setBounds(482, 310, 200, 22);
 		gamePanel.add(lblChatBox);
 		
+		//for chat
 		textField_2 = new JTextField();
 		textField_2.setBounds(482, 692, 206, 50);
 		gamePanel.add(textField_2);
 		textField_2.setColumns(10);
+		textField_2.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				String text = textField_2.getText();
+				int keyCode = e.getKeyCode();
+				if(keyCode == KeyEvent.VK_ENTER) {
+					out.println(text);
+					textField_2.setText("");
+				}
+			}
+		});
 		
 		JButton btnSend = new JButton("Send");
 		btnSend.setBounds(690, 693, 80, 49);
 		gamePanel.add(btnSend);
 		
+		btnSend.addMouseListener(new MouseAdapter(){
+			public void mousePressed(MouseEvent e){
+				String text = textField_2.getText();
+				out.println(text);
+				textField_2.setText("");
+        		
+        	}
+		});
+		
 		setVisible(true);
 	}
+	
+	private void run() throws IOException {
+
+        // Make connection and initialize streams
+//        String serverAddress = getServerAddress();
+    	String serverAddress = "localhost";
+        Socket socket = new Socket(serverAddress, 9001);
+        in = new BufferedReader(new InputStreamReader(
+            socket.getInputStream()));
+        out = new PrintWriter(socket.getOutputStream(), true);
+
+        // Process all messages from server, according to the protocol.
+        while (true) {
+            String line = in.readLine();
+        	if (line.startsWith("MESSAGE")) {
+        		chatTextArea.append(line.substring(8) + "\n");
+            }
+        }
+    }
 }
