@@ -196,10 +196,14 @@ public class gui extends JPanel {
 				}
 			}
 			if(full) {
+				main.updateLabel();
+				
 				// REPLACE ROWS BELOW WITH ROWS ABOVE
 				for(int j = i; j > 0; j--) {
 					for(int x = 0; x < tetrisBoardWidthSquare; x++) {
-						tetrisBoard[j*tetrisBoardWidthSquare + x] = tetrisBoard[(j-1)*tetrisBoardWidthSquare + x];
+						tetrisBoard[j*tetrisBoardWidthSquare + x].setColor(tetrisBoard[(j-1)*tetrisBoardWidthSquare + x].getColor());
+						tetrisBoard[j*tetrisBoardWidthSquare + x].setIsFull(tetrisBoard[(j-1)*tetrisBoardWidthSquare + x].isFull());
+						tetrisBoard[(j-1)*tetrisBoardWidthSquare + x].reset();
 					}
 				}
 				

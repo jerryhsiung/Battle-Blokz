@@ -14,15 +14,6 @@ public class tileData {
 		tileColor = Color.BLACK;
 	}
 	
-	public void setAll(pieces p) {
-		// Shape names - i, o, t, s, z, j, l
-		
-		Color[] list = {Color.CYAN, Color.YELLOW, Color.MAGENTA, Color.GREEN, Color.RED, Color.BLUE, Color.ORANGE};
-		
-		tileColor = list[p.ordinal()];
-		isFull = true;
-	}
-	
 	public void reset() {
 		tileColor = Color.BLACK;
 		isFull = false;

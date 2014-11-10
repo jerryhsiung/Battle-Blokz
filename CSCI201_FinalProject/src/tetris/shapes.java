@@ -66,7 +66,7 @@ public class shapes {
     	Random rn = new Random();
     	
     	int randPiece = rn.nextInt(7);
-    //	System.out.println(randPiece);	
+    	System.out.println(randPiece);	
 		setPiece(pieceList[randPiece]);
     }
     
@@ -111,7 +111,7 @@ public class shapes {
     			}
     			// CHECK BORDERS (SIDES)
     			else if(gui.currentPieceX+temp[i][1] > 9 || gui.currentPieceX+temp[i][1] < 0) {
-    	    		System.out.println("SIDES");
+    	    	//	System.out.println("SIDES");
     				return;
     	    	}
     	    		
@@ -125,7 +125,7 @@ public class shapes {
                 // SET Y : y = -x
                 shapeXY[i][1] = -x;
                 
-                System.out.println(shapeXY[i][0] + ", " + shapeXY[i][1]);
+            //    System.out.println(shapeXY[i][0] + ", " + shapeXY[i][1]);
             }
     	}
     	
