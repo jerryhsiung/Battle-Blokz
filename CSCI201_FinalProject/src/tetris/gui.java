@@ -16,7 +16,7 @@ public class gui extends JPanel {
 	
 	static int tetrisBoardWidthSquare = 10; 
 	static int tetrisBoardHeightSquare = 24;
-	int tileLength = 36; 
+	int tileLength = 30; 
 	int tetrisBoardWidth = 10*tileLength;
 	int tetrisBoardHeight = 22*tileLength;
 	
@@ -72,8 +72,9 @@ public class gui extends JPanel {
 		
 		// DRAW CURRENT SHAPE
 		if(currentPiece.hasShape()) {
-			drawShape(g, currentPieceX, currentPieceY, currentPiece);
 			drawShadow(g, currentPieceX, currentPieceY, currentPiece);
+			drawShape(g, currentPieceX, currentPieceY, currentPiece);
+			
 		}
 	}
 	
