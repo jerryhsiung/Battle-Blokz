@@ -401,18 +401,20 @@ public class GUI extends JFrame{
 		
 		setVisible(true);
 		setFocusable(false);
-//		gameboard.requestFocus();
-//		gameboard.requestFocusInWindow();
+		gameboard.setFocusable(true);
+//		gamePanel.setFocusable(true);
+		gameboard.requestFocus();
+		gameboard.requestFocusInWindow();
 //		gamePanel.requestFocus();
 //		gamePanel.requestFocusInWindow();
-		addFocusListener(new FocusAdapter(){
-			public void focusGained(FocusEvent ae){
-				gameboard.requestFocus();
-				gameboard.requestFocusInWindow();
-				gamePanel.requestFocus();
-				gamePanel.requestFocusInWindow();
-			}
-		});
+//		addFocusListener(new FocusAdapter(){
+//			public void focusGained(FocusEvent ae){
+//				gameboard.requestFocus();
+//				gameboard.requestFocusInWindow();
+//				gamePanel.requestFocus();
+//				gamePanel.requestFocusInWindow();
+//			}
+//		});
 	}
 	
 	//tetris game
