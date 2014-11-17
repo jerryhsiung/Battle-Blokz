@@ -1,3 +1,5 @@
+package tetris;
+
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -110,14 +112,18 @@ public class gui extends JPanel {
 	
 	public Font createFont() {
 		// IMPLEMENT FONT
+		
 	    try {
-	    	Font font = Font.createFont(Font.TRUETYPE_FONT, new File("digitalFont2.ttf")).deriveFont(12f);
+	    	File file = new File("Font/digitalFont2.ttf");
+	   // 	System.out.println(file.getAbsolutePath());
+	    	Font font = Font.createFont(Font.TRUETYPE_FONT, file).deriveFont(12f);
 		    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("digitalFont.ttf")));
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, file));
 			
 			return font.deriveFont(58f);
 		} catch (FontFormatException | IOException e) {
 			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	    
@@ -355,6 +361,7 @@ public class gui extends JPanel {
 
 	        switch (keycode) {
 		        case KeyEvent.VK_LEFT:
+		        	System.out.println("LEFT");
 		        	moveLeft();
 		        	repaint();
 		            break;
