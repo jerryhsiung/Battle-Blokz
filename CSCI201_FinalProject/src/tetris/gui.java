@@ -110,6 +110,10 @@ public class gui extends JPanel {
 //		updateScore();
 	}
 	
+	public void startGame() {
+		gameOver = false;
+	}
+	
 	public Font createFont() {
 		// IMPLEMENT FONT
 		
