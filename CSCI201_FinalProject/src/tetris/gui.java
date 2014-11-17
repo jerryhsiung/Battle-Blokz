@@ -25,7 +25,7 @@ public class gui extends JPanel {
 	
 	static int tetrisBoardWidthSquare = 10; 
 	static int tetrisBoardHeightSquare = 24;
-	int tileLength = 30; 
+	int tileLength = 33; 
 //	int tetrisBoardWidth = 10*tileLength;
 //	int tetrisBoardHeight = 22*tileLength;
 	
@@ -38,16 +38,17 @@ public class gui extends JPanel {
 	static int currentPieceY = 4;
 	
 	boolean dropped = false;
-	boolean gameOver = false;
+	boolean gameOver = true;
 	
 	public int lineSent = 0;
 	public JLabel scoreBoard = new JLabel();
 	
 	Timer timer = new Timer();
 	
+	public keyboardListener kl = new keyboardListener();
+	
 	public gui() {
 		this.setBackground(Color.GRAY);
-		keyboardListener kl = new keyboardListener();
 		
 		// Initialize tetrisBoard 
 		for(int i = 0; i < tetrisBoardWidthSquare*tetrisBoardHeightSquare; i++) {
@@ -112,6 +113,8 @@ public class gui extends JPanel {
 	
 	public void startGame() {
 		gameOver = false;
+		this.addKeyListener(kl);
+
 	}
 	
 	public Font createFont() {
@@ -217,7 +220,7 @@ public class gui extends JPanel {
 		}
 		
 		for(int i = 0; i < 4; i++) {
-			drawSquare(g, tempX+temp[i][0], tempY-temp[i][1], Color.WHITE);
+			drawSquare(g, tempX+temp[i][0], tempY-temp[i][1], Color.GRAY);
 		}
 		
 	}
@@ -369,7 +372,6 @@ public class gui extends JPanel {
 
 	        switch (keycode) {
 		        case KeyEvent.VK_LEFT:
-		        	System.out.println("LEFT");
 		        	moveLeft();
 		        	repaint();
 		            break;
