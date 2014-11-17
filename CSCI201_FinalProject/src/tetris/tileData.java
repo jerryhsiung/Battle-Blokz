@@ -1,4 +1,4 @@
-package tetris;
+
 import java.awt.Color;
 
 //import tetrisWorking.shapes.pieces;

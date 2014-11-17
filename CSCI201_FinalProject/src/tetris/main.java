@@ -1,8 +1,9 @@
-package tetris;
+
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class main extends JFrame {
 	
@@ -12,25 +13,25 @@ public class main extends JFrame {
 	public main() {
 		super("Tetris");
 		this.setLocation(100,100);
-		this.setSize(300,660);
+		this.setSize(300,683);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		lines = 0;
-		
-		jl = new JLabel("Lines Cleared - " + lines);
+//		lines = 0;
+//		
+//		jl = new JLabel("Lines Cleared - " + lines);
 		
 		gui board = new gui();
-		
+
 		this.add(board);
-		this.add(jl,BorderLayout.SOUTH);
+//		this.add(jl,BorderLayout.SOUTH);
 		
 		this.setVisible(true);
 	}
 	
-	public static void updateLabel() {
-		lines++;
-		jl.setText("Lines Cleared - " + lines);
-	}
+//	public static void updateLabel() {
+//		lines++;
+//		jl.setText("Lines Cleared - " + lines);
+//	}
 	
 	public static void main(String [] args) {
 		main test = new main();

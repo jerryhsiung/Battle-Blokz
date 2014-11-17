@@ -1,25 +1,31 @@
-package tetris;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
 import java.awt.Stroke;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class gui extends JPanel {
 	
 	static int tetrisBoardWidthSquare = 10; 
 	static int tetrisBoardHeightSquare = 24;
 	int tileLength = 30; 
-	int tetrisBoardWidth = 10*tileLength;
-	int tetrisBoardHeight = 22*tileLength;
+//	int tetrisBoardWidth = 10*tileLength;
+//	int tetrisBoardHeight = 22*tileLength;
 	
 	
 	public static tileData [] tetrisBoard = new tileData[tetrisBoardWidthSquare*tetrisBoardHeightSquare];
@@ -31,6 +37,9 @@ public class gui extends JPanel {
 	
 	boolean dropped = false;
 	boolean gameOver = false;
+	
+	public int lineSent = 0;
+	public JLabel scoreBoard = new JLabel();
 	
 	Timer timer = new Timer();
 	
@@ -60,7 +69,24 @@ public class gui extends JPanel {
 				}
 			}
 		}, 400, 400);
+
 		
+		scoreBoard.setAlignmentX(CENTER_ALIGNMENT);
+		scoreBoard.setAlignmentY(CENTER_ALIGNMENT);
+		scoreBoard.setHorizontalAlignment(SwingConstants.CENTER);
+		scoreBoard.setVerticalAlignment(SwingConstants.CENTER);
+		scoreBoard.setHorizontalTextPosition(SwingConstants.CENTER);
+		scoreBoard.setVerticalTextPosition(SwingConstants.CENTER);
+		scoreBoard.setFont(createFont());
+		scoreBoard.setText("LINES - " + lineSent);
+		scoreBoard.setForeground(Color.CYAN.darker());
+		scoreBoard.setBackground(Color.DARK_GRAY.darker().darker().darker().darker());
+		scoreBoard.setOpaque(true);
+		
+		scoreBoard.setBounds(0, (tetrisBoardHeightSquare-4)*tileLength, tetrisBoardWidthSquare*tileLength, scoreBoard.getPreferredSize().height);
+		this.add(scoreBoard);
+		
+		this.setLayout(null);
 		setFocusable(true);
 		this.addKeyListener(kl);
 	}
@@ -77,6 +103,30 @@ public class gui extends JPanel {
 			drawShape(g, currentPieceX, currentPieceY, currentPiece);
 			
 		}
+		
+//		// SCORE BOARD DRAW
+//		updateScore();
+	}
+	
+	public Font createFont() {
+		// IMPLEMENT FONT
+	    try {
+	    	Font font = Font.createFont(Font.TRUETYPE_FONT, new File("digitalFont2.ttf")).deriveFont(12f);
+		    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("digitalFont.ttf")));
+			
+			return font.deriveFont(58f);
+		} catch (FontFormatException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+	    return null;
+	}
+	
+	public void updateScore() {
+		lineSent++;
+		scoreBoard.setText("LINES - " + lineSent);
 	}
 	
 	public void fillGrid(Graphics g) {
@@ -245,7 +295,8 @@ public class gui extends JPanel {
 				}
 			}
 			if(full) {
-				main.updateLabel();
+			//	main.updateLabel();
+				updateScore();
 				
 				// REPLACE ROWS BELOW WITH ROWS ABOVE
 				for(int j = i; j > 0; j--) {
