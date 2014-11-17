@@ -142,6 +142,10 @@ public class gui extends JPanel {
 		scoreBoard.setText("LINES - " + lineSent);
 	}
 	
+	public void gameOverLabel() {
+		scoreBoard.setText("GAME OVER");
+	}
+	
 	public int getScore() {
 		return lineSent;
 	}
@@ -352,7 +356,9 @@ public class gui extends JPanel {
 		for(int i = 0; i < attempts; i++) {
 	        if (!canMove(currentPieceX, currentPieceY+1, currentPiece)) {
 	        	System.out.println("GAME OVER");
+	        	
 	            gameOver = true;
+	            gameOverLabel();
 	            break;
 	        }
 		}
