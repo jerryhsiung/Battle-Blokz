@@ -135,6 +135,10 @@ public class gui extends JPanel {
 		scoreBoard.setText("LINES - " + lineSent);
 	}
 	
+	public int getScore() {
+		return lineSent;
+	}
+	
 	public void fillGrid(Graphics g) {
 		
 		// starts at 4 because 4 empty rows
