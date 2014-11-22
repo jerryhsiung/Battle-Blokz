@@ -36,7 +36,6 @@ import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
 
 import tetris.gui;
-import tetris.main;
 
 public class GUI extends JFrame{
 	static JPanel cardPanel = new JPanel();
