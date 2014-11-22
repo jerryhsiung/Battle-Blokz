@@ -3,6 +3,7 @@ import java.awt.Color;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -28,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
@@ -37,7 +39,7 @@ import javax.swing.SwingConstants;
 
 import tetris.gui;
 
-public class GUI extends JFrame{
+public class GUI extends JFrame implements Runnable{
 	static JPanel cardPanel = new JPanel();
 	static CardLayout cardLayout;
 	private JTextField textField;
@@ -416,20 +418,48 @@ public class GUI extends JFrame{
 //		});
 	}
 	
+	//connect IP addresses
+	private String getServerAddress() {
+        return JOptionPane.showInputDialog(
+            this,
+            "Enter IP Address of the Server:",
+            "Welcome to the Chatter",
+            JOptionPane.QUESTION_MESSAGE);
+    }
+	
 	//tetris game
 	public static void updateLabel() {
 		lines++;
 		jl.setText("Lines Cleared - " + lines);
 	}
 	
-	private void run() throws IOException {
+	public void run() {
 		// Make connection and initialize streams
-//      String serverAddress = getServerAddress();
-  	String serverAddress = "localhost";
-      Socket socket = new Socket(serverAddress, 9001);
-      in = new BufferedReader(new InputStreamReader(
-          socket.getInputStream()));
-      out = new PrintWriter(socket.getOutputStream(), true);
+      String serverAddress = getServerAddress();
+//      String serverAddress = "localhost";
+      Socket socket = null;
+	try {
+		socket = new Socket(serverAddress, 9001);
+	} catch (UnknownHostException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+      try {
+		in = new BufferedReader(new InputStreamReader(
+		      socket.getInputStream()));
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+      try {
+		out = new PrintWriter(socket.getOutputStream(), true);
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 
 	}
 	
