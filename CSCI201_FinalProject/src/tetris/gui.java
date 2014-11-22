@@ -80,7 +80,7 @@ public class gui extends JPanel {
 		scoreBoard.setVerticalAlignment(SwingConstants.CENTER);
 		scoreBoard.setHorizontalTextPosition(SwingConstants.CENTER);
 		scoreBoard.setVerticalTextPosition(SwingConstants.CENTER);
-		scoreBoard.setFont(createFont());
+//		scoreBoard.setFont(createFont());
 		scoreBoard.setText("LINES - " + lineSent);
 		scoreBoard.setForeground(Color.CYAN.darker());
 		scoreBoard.setBackground(Color.DARK_GRAY.darker().darker().darker().darker());
@@ -122,7 +122,7 @@ public class gui extends JPanel {
 		
 	    try {
 	    	File file = new File("Font/digitalFont2.ttf");
-	   // 	System.out.println(file.getAbsolutePath());
+	    	System.out.println(file.getAbsolutePath());
 	    	Font font = Font.createFont(Font.TRUETYPE_FONT, file).deriveFont(12f);
 		    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, file));

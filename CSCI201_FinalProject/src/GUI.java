@@ -282,10 +282,20 @@ public class GUI extends JFrame implements Runnable{
 		lblTeam_1.setBounds(400, 55, 382, 50);
 		teamPanel.add(lblTeam_1);
 		
+		gui gameboard = new gui();
+		gameboard.setBounds(12, 10, 361, 720);
+		
 		JButton btnNewButton_1 = new JButton("Start!");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(cardPanel, "Game");
+				gameboard.startGame();
+				
+				gameboard.setFocusable(true);
+				gameboard.requestFocus();
+				gameboard.requestFocusInWindow();
+				
+
 			}
 		});
 		btnNewButton_1.setBounds(336, 519, 134, 70);
@@ -334,13 +344,9 @@ public class GUI extends JFrame implements Runnable{
 //		tetrisPanel.setBorder(blackline);
 //		tetrisPanel.setBounds(12, 13, 450, 729);
 //		gamePanel.add(tetrisPanel);
-		gui gameboard = new gui();
-		gameboard.setBounds(12, 10, 361, 720);
+
 		gamePanel.add(gameboard);
 		
-		jl = new JLabel("Lines Cleared - " + lines);
-		jl.setBounds(12, 730, 400, 30);
-		gamePanel.add(jl);
 		
 		JTextArea opponentTextArea = new JTextArea();
 		opponentTextArea.setEditable(false);
@@ -397,15 +403,11 @@ public class GUI extends JFrame implements Runnable{
         	}
 		});
 		
-		//tetris game play
-		lines = 0;
+		gamePanel.setFocusable(true);
 		
 		setVisible(true);
 		setFocusable(false);
-		gameboard.setFocusable(true);
-//		gamePanel.setFocusable(true);
-		gameboard.requestFocus();
-		gameboard.requestFocusInWindow();
+
 //		gamePanel.requestFocus();
 //		gamePanel.requestFocusInWindow();
 //		addFocusListener(new FocusAdapter(){
