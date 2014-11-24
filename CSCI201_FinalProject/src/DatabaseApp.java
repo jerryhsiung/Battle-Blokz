@@ -20,8 +20,7 @@ public class DatabaseApp {
 		//addUser("may", "usc", "maywu@usc.edu");
 		
 		//updateScores("may", 15, true);
-		
-
+	
 //		}	
 	
 	public void addUser(String username, String password, String email) {
