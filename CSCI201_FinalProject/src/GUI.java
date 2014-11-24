@@ -496,7 +496,7 @@ public class GUI extends JFrame implements Runnable{
 		
 		JLabel numKO3 = new JLabel("", SwingConstants.CENTER);
 		numKO3.setForeground(Color.RED);
-		numKO13.setBounds(505, 231, 65, 16);
+		numKO3.setBounds(505, 231, 65, 16);
 		endPanel.add(numKO3);
 		
 		JLabel numKO4 = new JLabel("", SwingConstants.CENTER);
