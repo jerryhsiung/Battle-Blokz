@@ -59,12 +59,6 @@ public class GUI extends JFrame implements Runnable{
     //tetris game
     public static JLabel jl;
 	public static int lines;
-
-	public static void main(String[] args) throws IOException {
-		GUI window = new GUI();
-		window.run();
-		window.chat();
-	}
 	
 	public GUI()
 	{
@@ -465,7 +459,7 @@ public class GUI extends JFrame implements Runnable{
 
 	}
 	
-	private void chat() throws IOException {
+	public void chat() throws IOException {
 
         
         // Process all messages from server, according to the protocol.
