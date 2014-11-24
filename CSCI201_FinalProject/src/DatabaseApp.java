@@ -2,25 +2,29 @@ import java.sql.*;
 
 
 public class DatabaseApp {
-	static Connection conn;
-	static PreparedStatement pstmt;
-	static Statement stmt;
-	static ResultSet rst;
-	static String word;
+	Connection conn;
+	PreparedStatement pstmt;
+	Statement stmt;
+	ResultSet rst;
+	String word;
+	
+	public DatabaseApp(Connection conn){
+		this.conn = conn;
+	}
 	
 	
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		Class.forName("com.mysql.jdbc.Driver");
-		conn = DriverManager.getConnection("jdbc:mysql://localhost/201_project", "root", "");
+//	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+//		Class.forName("com.mysql.jdbc.Driver");
+//		conn = DriverManager.getConnection("jdbc:mysql://localhost/201_project", "root", "");
 		
 		//addUser("may", "usc", "maywu@usc.edu");
 		
 		//updateScores("may", 15, true);
 		
 
-		}	
+//		}	
 	
-	public static void addUser(String username, String password, String email) {
+	public void addUser(String username, String password, String email) {
 		try {
 			pstmt = conn.prepareStatement("INSERT INTO players(username, password, email, wins, numgames, sentlines) VALUES(?,?,?,?,?,?)");
 			pstmt.setString(1, username);
@@ -36,7 +40,7 @@ public class DatabaseApp {
 		}
 	}
 	
-	public static void updateScores(String username, int lines, boolean winner) {
+	public void updateScores(String username, int lines, boolean winner) {
 		try {
 			if(winner) {
 				pstmt = conn.prepareStatement("UPDATE players SET sentlines = sentlines + ?, numgames = numgames + 1, wins = wins + 1 WHERE username = ?");
@@ -57,11 +61,11 @@ public class DatabaseApp {
 		}
 	}
 	
-	public static void forgotPassword(String email) {
+	public void forgotPassword(String email) {
 		//add code to send out an email
 	}
 	
-	public static boolean verifyLogin(String username, String password) {
+	public boolean verifyLogin(String username, String password) {
 		boolean flag = false;
 		String temp;
 		try {

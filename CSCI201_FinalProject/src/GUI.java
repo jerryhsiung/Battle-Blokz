@@ -52,6 +52,9 @@ public class GUI extends JFrame implements Runnable{
 	private JTextField textField_5;
 	private JTextArea chatTextArea;
 	
+	//database
+	DatabaseApp database;
+	
 	//server/client
 	BufferedReader in;
     PrintWriter out;
@@ -60,13 +63,15 @@ public class GUI extends JFrame implements Runnable{
     public static JLabel jl;
 	public static int lines;
 	
-	public GUI()
+	public GUI(DatabaseApp database)
 	{
 		super("CSCI 201 Final Project");
 		setSize(800,800);
 		setLocation(50,50);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
+		
+		this.database = database;
 		
 		cardPanel.setBounds(0, 0, 782, 755);
 		getContentPane().add(cardPanel);
@@ -84,6 +89,7 @@ public class GUI extends JFrame implements Runnable{
 		cardPanel.add(createUser, "Create");
 		createUser.setLayout(null);
 		
+		//creating users
 		JLabel lblUsername = new JLabel("Username:");
 		lblUsername.setBounds(265, 206, 84, 16);
 		createUser.add(lblUsername);
@@ -97,17 +103,26 @@ public class GUI extends JFrame implements Runnable{
 		lblCreateANew.setBounds(0, 82, 782, 92);
 		createUser.add(lblCreateANew);
 		
+		//email - create user
+		textField_4 = new JTextField();
+		textField_4.setBounds(305, 288, 165, 22);
+		createUser.add(textField_4);
+		textField_4.setColumns(10);
+		
+		//password - create user
 		passwordField_1 = new JPasswordField();
 		passwordField_1.setBounds(334, 247, 136, 22);
 		createUser.add(passwordField_1);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(334, 203, 136, 22);
-		createUser.add(textArea);
+		//username - create user
+		JTextField textfield = new JTextField();
+		textfield.setBounds(334, 203, 136, 22);
+		createUser.add(textfield);
 		
 		JButton btnCreate = new JButton("Create");
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				database.addUser(textfield.getText(), passwordField_1.toString(), textField_4.getText());
 				cardLayout.show(cardPanel, "Play");
 			}
 		});
@@ -127,10 +142,9 @@ public class GUI extends JFrame implements Runnable{
 		lblEmail.setBounds(265, 291, 50, 16);
 		createUser.add(lblEmail);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(305, 288, 165, 22);
-		createUser.add(textField_4);
-		textField_4.setColumns(10);
+		
+		
+		//forgot login
 		cardPanel.add(forgotUser, "Forgot");
 		forgotUser.setLayout(null);
 		
