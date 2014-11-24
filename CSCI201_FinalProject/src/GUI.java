@@ -244,8 +244,17 @@ public class GUI extends JFrame implements Runnable{
 		JButton btnNewButton = new JButton("Login");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				database.verifyLogin(textField_3.getText(), new String(passwordField.getPassword()));
-				cardLayout.show(cardPanel, "Play");
+				boolean success = database.verifyLogin(textField_3.getText(), new String(passwordField.getPassword()));
+				if(success){
+					cardLayout.show(cardPanel, "Play");
+				}
+				else{
+					JOptionPane.showMessageDialog(GUI.this, 
+							"Invalid username/password", 
+							"Failed Login", 
+							JOptionPane.ERROR_MESSAGE);
+
+				}
 			}
 		});
 		btnNewButton.setBounds(306, 435, 175, 41);
