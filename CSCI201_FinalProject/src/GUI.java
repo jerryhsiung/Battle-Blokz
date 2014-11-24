@@ -2,6 +2,7 @@ import java.awt.CardLayout;
 import java.awt.Color;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -24,12 +25,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.font.TextAttribute;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Map;
 
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
@@ -38,6 +41,8 @@ import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
 
 import tetris.gui;
+import javax.swing.Icon;
+import javax.swing.JComboBox;
 
 public class GUI extends JFrame implements Runnable{
 	static JPanel cardPanel = new JPanel();
@@ -124,7 +129,7 @@ public class GUI extends JFrame implements Runnable{
 				cardLayout.show(cardPanel, "Play");
 			}
 		});
-		btnCreate.setBounds(265, 332, 97, 25);
+		btnCreate.setBounds(265, 415, 97, 25);
 		createUser.add(btnCreate);
 		
 		JButton btnCancel = new JButton("Cancel");
@@ -133,42 +138,50 @@ public class GUI extends JFrame implements Runnable{
 				cardLayout.show(cardPanel, "Start");
 			}
 		});
-		btnCancel.setBounds(374, 332, 97, 25);
+		btnCancel.setBounds(374, 415, 97, 25);
 		createUser.add(btnCancel);
 		
 		JLabel lblEmail = new JLabel("Email:");
 		lblEmail.setBounds(265, 291, 50, 16);
 		createUser.add(lblEmail);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(334, 323, 137, 79);
+		createUser.add(comboBox);
+		
+		JLabel lblselectAIcon = new JLabel("<html>Select a Icon:</html>");
+		lblselectAIcon.setBounds(265, 334, 56, 48);
+		createUser.add(lblselectAIcon);
 		JPanel playPanel = new JPanel();
-		cardPanel.add(playPanel, "name_1503613294342");
+		cardPanel.add(playPanel, "Play");
 		playPanel.setLayout(null);
 		
-		JButton btnNewButton_2 = new JButton("Play");
-		btnNewButton_2.addActionListener(new ActionListener() {
+		JButton btnPlay = new JButton("Play");
+		btnPlay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(cardPanel, "Team");
 			}
 		});
-		btnNewButton_2.setBounds(297, 228, 199, 82);
-		playPanel.add(btnNewButton_2);
+		btnPlay.setBounds(297, 228, 199, 82);
+		playPanel.add(btnPlay);
 		
-		JButton button_3 = new JButton("Help");
-		button_3.addActionListener(new ActionListener() {
+		JButton btnHelp = new JButton("Help");
+		btnHelp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(cardPanel, "Help");
 			}
 		});
-		button_3.setBounds(297, 323, 199, 82);
-		playPanel.add(button_3);
+		btnHelp.setBounds(297, 323, 199, 82);
+		playPanel.add(btnHelp);
 		
-		JButton button_4 = new JButton("Quit");
-		button_4.addActionListener(new ActionListener() {
+		JButton quitGameBtn = new JButton("Quit");
+		quitGameBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(1);
 			}
 		});
-		button_4.setBounds(297, 418, 199, 82);
-		playPanel.add(button_4);
+		quitGameBtn.setBounds(297, 418, 199, 82);
+		playPanel.add(quitGameBtn);
 		
 		//forgot login
 		cardPanel.add(forgotUser, "Forgot");
@@ -214,10 +227,76 @@ public class GUI extends JFrame implements Runnable{
 		cardPanel.add(helpPanel, "Help");
 		helpPanel.setLayout(null);
 		
-		JLabel label_1 = new JLabel("Help", SwingConstants.CENTER);
-		label_1.setFont(new Font("Tahoma", Font.BOLD, 42));
-		label_1.setBounds(0, 34, 782, 92);
-		helpPanel.add(label_1);
+		JLabel lblHelp = new JLabel("Help", SwingConstants.CENTER);
+		lblHelp.setFont(new Font("Tahoma", Font.BOLD, 42));
+		lblHelp.setBounds(0, 34, 782, 92);
+		helpPanel.add(lblHelp);
+		
+		JLabel lblRules = new JLabel("Rules:");
+		lblRules.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblRules.setBounds(139, 110, 75, 35);
+		helpPanel.add(lblRules);
+		Font font = lblRules.getFont();
+		Map attributes = font.getAttributes();
+		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		lblRules.setFont(font.deriveFont(attributes));
+		
+		JLabel ruleDescription = new JLabel("<html>Each team has one or two players on each to start, as the rules of the game is to beat your opponent(s) by sending unclearable lines with the every 20 lines you complete in your game. Players are allow to communicate with everyone in the game or just with their teammate. </html");
+		ruleDescription.setBounds(139, 147, 504, 71);
+		helpPanel.add(ruleDescription);
+		
+		JLabel lblControls = new JLabel("Controls:");
+		lblControls.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblControls.setBounds(139, 226, 75, 35);
+		Font font2 = lblRules.getFont();
+		Map attributes2 = font2.getAttributes();
+		attributes2.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		lblControls.setFont(font.deriveFont(attributes2));
+		helpPanel.add(lblControls);
+		
+		ImageIcon keyPic = new ImageIcon("arrowKeys.png");
+		JLabel lblKeys = new JLabel(keyPic);
+		lblKeys.setBounds(254, 294, 200, 113);
+		helpPanel.add(lblKeys);
+		
+		JLabel lblRotate = new JLabel("Rotate");
+		lblRotate.setBounds(331, 272, 56, 16);
+		helpPanel.add(lblRotate);
+		
+		JLabel lblmoveRight = new JLabel("<html>Move Right</html>");
+		lblmoveRight.setBounds(466, 342, 56, 42);
+		helpPanel.add(lblmoveRight);
+		
+		JLabel lblmoveLeft = new JLabel("<html>Move Left</html>");
+		lblmoveLeft.setBounds(203, 345, 44, 37);
+		helpPanel.add(lblmoveLeft);
+		
+		JLabel lblMoveDown = new JLabel("Move Down");
+		lblMoveDown.setBounds(324, 409, 75, 16);
+		helpPanel.add(lblMoveDown);
+		
+		ImageIcon spacebarPic = new ImageIcon("spacebar.png");
+		JLabel lblSpacebar = new JLabel(spacebarPic);
+		lblSpacebar.setBounds(145, 463, 427, 71);
+		helpPanel.add(lblSpacebar);
+		
+		JLabel lblDropBlock = new JLabel("Drop Block");
+		lblDropBlock.setBounds(324, 547, 75, 16);
+		helpPanel.add(lblDropBlock);
+		
+		JLabel lblChatInstruction = new JLabel("<html>Note: To chat to all players in the game type \"/a \" before you write your message, and to chat with partner, type \"/t \" before your message.</html>");
+		lblChatInstruction.setBounds(203, 577, 298, 59);
+		helpPanel.add(lblChatInstruction);
+		
+		JButton btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cardLayout.show(cardPanel, "Play");
+			}
+		});
+		btnBack.setBounds(504, 666, 97, 25);
+		helpPanel.add(btnBack);
+		
 		cardPanel.add(teamPanel, "Team");
 		JPanel gamePanel = new JPanel();
 		cardPanel.add(gamePanel, "Game");
@@ -290,11 +369,14 @@ public class GUI extends JFrame implements Runnable{
 		});
 		
 		gamePanel.setFocusable(true);
-		JPanel endPanel = new JPanel();
-		cardPanel.add(endPanel, "name_1523841233494");
-		endPanel.setLayout(null);
 		
-		JLabel gameOverLbl = new JLabel("Game Over!", SwingConstants.CENTER);
+		//game over
+		JPanel endPanel = new JPanel();
+		cardPanel.add(endPanel, "End");
+		endPanel.setLayout(null);
+	
+		
+		JLabel gameOverLbl = new JLabel("Game Over!", JLabel.CENTER);
 		gameOverLbl.setFont(new Font("Tahoma", Font.BOLD, 47));
 		gameOverLbl.setBounds(0, 29, 782, 50);
 		endPanel.add(gameOverLbl);
@@ -321,14 +403,14 @@ public class GUI extends JFrame implements Runnable{
 		cardLayout = (CardLayout) cardPanel.getLayout();
 		
 		//main page to login
-		JLabel lblTetris = new JLabel("BATTLE BLOKZ", JLabel.CENTER);
-		lblTetris.setFont(new Font("Tahoma", Font.BOLD, 47));
-		lblTetris.setBounds(0, 252, 782, 50);
-		startPanel.add(lblTetris);
+		JLabel lblTitle = new JLabel("BATTLE BLOKZ", JLabel.CENTER);
+		lblTitle.setFont(new Font("Tahoma", Font.BOLD, 47));
+		lblTitle.setBounds(0, 252, 782, 50);
+		startPanel.add(lblTitle);
 		
 		//password - login page
 		passwordField = new JPasswordField();
-		passwordField.setBounds(367, 400, 114, 22);
+		passwordField.setBounds(367, 403, 114, 22);
 		startPanel.add(passwordField);
 		
 		//username - login page
