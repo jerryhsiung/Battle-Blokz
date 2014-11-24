@@ -246,9 +246,11 @@ public class GUI extends JFrame implements Runnable{
 			public void actionPerformed(ActionEvent arg0) {
 				boolean success = database.verifyLogin(textField_3.getText(), new String(passwordField.getPassword()));
 				if(success){
+					System.out.println("LOGIN");
 					cardLayout.show(cardPanel, "Play");
 				}
 				else{
+					System.out.println("NOT LOGIN");
 					JOptionPane.showMessageDialog(GUI.this, 
 							"Invalid username/password", 
 							"Failed Login", 
