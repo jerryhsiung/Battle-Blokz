@@ -56,6 +56,8 @@ public class GUI extends JFrame implements Runnable{
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextArea chatTextArea;
+	private Font font;
+	private Map attributes;
 	
 	//database
 	DatabaseApp database;
@@ -236,8 +238,8 @@ public class GUI extends JFrame implements Runnable{
 		lblRules.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblRules.setBounds(139, 110, 75, 35);
 		helpPanel.add(lblRules);
-		Font font = lblRules.getFont();
-		Map attributes = font.getAttributes();
+		font = lblRules.getFont();
+		attributes = font.getAttributes();
 		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
 		lblRules.setFont(font.deriveFont(attributes));
 		
@@ -248,10 +250,10 @@ public class GUI extends JFrame implements Runnable{
 		JLabel lblControls = new JLabel("Controls:");
 		lblControls.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblControls.setBounds(139, 226, 75, 35);
-		Font font2 = lblRules.getFont();
-		Map attributes2 = font2.getAttributes();
-		attributes2.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-		lblControls.setFont(font.deriveFont(attributes2));
+		font = lblRules.getFont();
+		attributes = font.getAttributes();
+		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		lblControls.setFont(font.deriveFont(attributes));
 		helpPanel.add(lblControls);
 		
 		ImageIcon keyPic = new ImageIcon("arrowKeys.png");
@@ -374,7 +376,6 @@ public class GUI extends JFrame implements Runnable{
 		JPanel endPanel = new JPanel();
 		cardPanel.add(endPanel, "End");
 		endPanel.setLayout(null);
-	
 		
 		JLabel gameOverLbl = new JLabel("Game Over!", JLabel.CENTER);
 		gameOverLbl.setFont(new Font("Tahoma", Font.BOLD, 47));
@@ -398,6 +399,110 @@ public class GUI extends JFrame implements Runnable{
 		});
 		quitBtn.setBounds(409, 661, 175, 41);
 		endPanel.add(quitBtn);
+		
+		JLabel lblUsername_1 = new JLabel("Username:");
+		lblUsername_1.setBounds(235, 105, 82, 16);
+		font = lblUsername_1.getFont();
+		attributes = font.getAttributes();
+		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		lblControls.setFont(font.deriveFont(attributes));
+		endPanel.add(lblUsername_1);
+		
+		JLabel lblLinesSent = new JLabel("Lines Sent:");
+		lblLinesSent.setBounds(409, 105, 84, 16);
+		font = lblLinesSent.getFont();
+		attributes = font.getAttributes();
+		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		lblControls.setFont(font.deriveFont(attributes));
+		endPanel.add(lblLinesSent);
+		
+		JLabel lblKo = new JLabel("KO!");
+		lblKo.setBounds(528, 105, 56, 16);
+		font = lblKo.getFont();
+		attributes = font.getAttributes();
+		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		lblControls.setFont(font.deriveFont(attributes));
+		endPanel.add(lblKo);
+		
+		JLabel label_1 = new JLabel("1.)");
+		label_1.setBounds(196, 150, 56, 16);
+		label_1.setForeground(Color.green);
+		endPanel.add(label_1);
+		
+		JLabel label_2 = new JLabel("2.)");
+		label_2.setBounds(196, 190, 56, 16);
+		label_2.setForeground(Color.green);
+		endPanel.add(label_2);
+		
+		JLabel label_3 = new JLabel("3.)");
+		label_3.setBounds(196, 231, 56, 16);
+		label_3.setForeground(Color.red);
+		endPanel.add(label_3);
+		
+		JLabel label_4 = new JLabel("4.)");
+		label_4.setBounds(196, 269, 56, 16);
+		label_4.setForeground(Color.red);
+		endPanel.add(label_4);
+		
+		JLabel lblPlayer1 = new JLabel("");
+		lblPlayer1.setBounds(222, 150, 175, 16);
+		lblPlayer1.setForeground(Color.green);
+		endPanel.add(lblPlayer1);
+		
+		JLabel lblPlayer2 = new JLabel("");
+		lblPlayer2.setBounds(222, 190, 175, 16);
+		lblPlayer2.setForeground(Color.green);
+		endPanel.add(lblPlayer2);
+		
+		JLabel lblPlayer3 = new JLabel("");
+		lblPlayer3.setBounds(222, 231, 175, 16);
+		lblPlayer3.setForeground(Color.red);
+		endPanel.add(lblPlayer3);
+		
+		JLabel lblPlayer4 = new JLabel("");
+		lblPlayer4.setBounds(222, 269, 175, 16);
+		lblPlayer4.setForeground(Color.red);
+		endPanel.add(lblPlayer4);
+		
+		JLabel numLines1 = new JLabel("", JLabel.CENTER);
+		numLines1.setBounds(409, 150, 65, 16);
+		numLines1.setForeground(Color.green);
+		endPanel.add(numLines1);
+		
+		JLabel numLines2 = new JLabel("", JLabel.CENTER);
+		numLines2.setBounds(409, 190, 65, 16);
+		numLines2.setForeground(Color.green);
+		endPanel.add(numLines2);
+		
+		JLabel numLines3 = new JLabel("", JLabel.CENTER);
+		numLines3.setBounds(409, 231, 65, 16);
+		numLines3.setForeground(Color.red);
+		endPanel.add(numLines3);
+		
+		JLabel numLines4 = new JLabel("", JLabel.CENTER);
+		numLines4.setBounds(409, 269, 65, 16);
+		numLines4.setForeground(Color.red);
+		endPanel.add(numLines4);
+		
+		JLabel numKO1 = new JLabel("", SwingConstants.CENTER);
+		numKO1.setForeground(Color.GREEN);
+		numKO1.setBounds(505, 150, 65, 16);
+		endPanel.add(numKO1);
+		
+		JLabel numKO2 = new JLabel("", SwingConstants.CENTER);
+		numKO2.setForeground(Color.GREEN);
+		numKO2.setBounds(505, 190, 65, 16);
+		endPanel.add(numKO2);
+		
+		JLabel numKO3 = new JLabel("", SwingConstants.CENTER);
+		numKO3.setForeground(Color.RED);
+		numKO13.setBounds(505, 231, 65, 16);
+		endPanel.add(numKO3);
+		
+		JLabel numKO4 = new JLabel("", SwingConstants.CENTER);
+		numKO4.setForeground(Color.RED);
+		numKO4.setBounds(505, 269, 65, 16);
+		endPanel.add(numKO4);
 		startPanel.setLayout(null);
 		
 		cardLayout = (CardLayout) cardPanel.getLayout();
@@ -443,7 +548,8 @@ public class GUI extends JFrame implements Runnable{
 		JButton button = new JButton("Quit");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(1);
+				//System.exit(1);
+				cardLayout.show(cardPanel, "End");
 			}
 		});
 		button.setBounds(306, 597, 175, 41);
