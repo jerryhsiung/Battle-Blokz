@@ -164,7 +164,10 @@ public class GUI extends JFrame implements Runnable{
 		JButton btnSendLogin = new JButton("Send Login");
 		btnSendLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				JOptionPane.showMessageDialog(GUI.this, 
+						"Email sent", 
+						"Forgot Password", 
+						JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		btnSendLogin.setBounds(289, 255, 97, 25);
