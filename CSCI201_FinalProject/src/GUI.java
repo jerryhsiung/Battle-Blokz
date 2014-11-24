@@ -80,10 +80,8 @@ public class GUI extends JFrame implements Runnable{
 		JPanel startPanel = new JPanel();
 		JPanel createUser = new JPanel();
 		JPanel forgotUser = new JPanel();
-		JPanel playPanel = new JPanel();
 		JPanel helpPanel = new JPanel();
 		JPanel teamPanel = new JPanel();
-		JPanel gamePanel = new JPanel();
 		
 		cardPanel.add(startPanel, "Start");
 		cardPanel.add(createUser, "Create");
@@ -141,6 +139,36 @@ public class GUI extends JFrame implements Runnable{
 		JLabel lblEmail = new JLabel("Email:");
 		lblEmail.setBounds(265, 291, 50, 16);
 		createUser.add(lblEmail);
+		JPanel playPanel = new JPanel();
+		cardPanel.add(playPanel, "name_1503613294342");
+		playPanel.setLayout(null);
+		
+		JButton btnNewButton_2 = new JButton("Play");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cardLayout.show(cardPanel, "Team");
+			}
+		});
+		btnNewButton_2.setBounds(297, 228, 199, 82);
+		playPanel.add(btnNewButton_2);
+		
+		JButton button_3 = new JButton("Help");
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cardLayout.show(cardPanel, "Help");
+			}
+		});
+		button_3.setBounds(297, 323, 199, 82);
+		playPanel.add(button_3);
+		
+		JButton button_4 = new JButton("Quit");
+		button_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(1);
+			}
+		});
+		button_4.setBounds(297, 418, 199, 82);
+		playPanel.add(button_4);
 		
 		//forgot login
 		cardPanel.add(forgotUser, "Forgot");
@@ -182,37 +210,6 @@ public class GUI extends JFrame implements Runnable{
 		btnCancel_1.setBounds(398, 255, 97, 25);
 		forgotUser.add(btnCancel_1);
 		
-		//menu with 3 options: play, help and quit
-		cardPanel.add(playPanel, "Play");
-		playPanel.setLayout(null);
-		
-		JButton btnNewButton_2 = new JButton("Play");
-		btnNewButton_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(cardPanel, "Team");
-			}
-		});
-		btnNewButton_2.setBounds(297, 228, 199, 82);
-		playPanel.add(btnNewButton_2);
-		
-		JButton button_3 = new JButton("Help");
-		button_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(cardPanel, "Help");
-			}
-		});
-		button_3.setBounds(297, 323, 199, 82);
-		playPanel.add(button_3);
-		
-		JButton button_4 = new JButton("Quit");
-		button_4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(1);
-			}
-		});
-		button_4.setBounds(297, 418, 199, 82);
-		playPanel.add(button_4);
-		
 		//help page
 		cardPanel.add(helpPanel, "Help");
 		helpPanel.setLayout(null);
@@ -222,7 +219,103 @@ public class GUI extends JFrame implements Runnable{
 		label_1.setBounds(0, 34, 782, 92);
 		helpPanel.add(label_1);
 		cardPanel.add(teamPanel, "Team");
+		JPanel gamePanel = new JPanel();
 		cardPanel.add(gamePanel, "Game");
+		
+		gui gameboard = new gui();
+		gameboard.setBounds(12, 10, 361, 720);
+		gamePanel.setLayout(null);
+		
+//		JPanel tetrisPanel = new JPanel();
+//		tetrisPanel.setBorder(blackline);
+//		tetrisPanel.setBounds(12, 13, 450, 729);
+//		gamePanel.add(tetrisPanel);
+
+		gamePanel.add(gameboard);
+		
+		
+		JTextArea opponentTextArea = new JTextArea();
+		opponentTextArea.setEditable(false);
+		opponentTextArea.setBounds(482, 13, 288, 136);
+		gamePanel.add(opponentTextArea);
+		
+		JLabel lblNewLabel = new JLabel("Partner:");
+		lblNewLabel.setBounds(480, 162, 64, 22);
+		gamePanel.add(lblNewLabel);
+		
+		JTextArea partnerTextArea = new JTextArea();
+		partnerTextArea.setEditable(false);
+		partnerTextArea.setBounds(482, 195, 288, 32);
+		gamePanel.add(partnerTextArea);
+		
+		chatTextArea = new JTextArea();
+		chatTextArea.setEditable(false);
+		chatTextArea.setBounds(482, 338, 288, 349);
+		
+		JScrollPane chatScroll = new JScrollPane(chatTextArea);
+		chatScroll.setBounds(482, 338, 288, 349);
+		gamePanel.add(chatScroll);
+		
+		JLabel lblChatBox = new JLabel("Chat Box:");
+		lblChatBox.setBounds(482, 310, 200, 22);
+		gamePanel.add(lblChatBox);
+		
+		//for chat
+		textField_2 = new JTextField();
+		textField_2.setBounds(482, 692, 206, 50);
+		gamePanel.add(textField_2);
+		textField_2.setColumns(10);
+		textField_2.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				String text = textField_2.getText();
+				int keyCode = e.getKeyCode();
+				if(keyCode == KeyEvent.VK_ENTER) {
+					out.println(text);
+					textField_2.setText("");
+				}
+			}
+		});
+		
+		JButton btnSend = new JButton("Send");
+		btnSend.setBounds(690, 693, 80, 49);
+		gamePanel.add(btnSend);
+		
+		btnSend.addMouseListener(new MouseAdapter(){
+			public void mousePressed(MouseEvent e){
+				String text = textField_2.getText();
+				out.println(text);
+				textField_2.setText("");
+        		
+        	}
+		});
+		
+		gamePanel.setFocusable(true);
+		JPanel endPanel = new JPanel();
+		cardPanel.add(endPanel, "name_1523841233494");
+		endPanel.setLayout(null);
+		
+		JLabel gameOverLbl = new JLabel("Game Over!", SwingConstants.CENTER);
+		gameOverLbl.setFont(new Font("Tahoma", Font.BOLD, 47));
+		gameOverLbl.setBounds(0, 29, 782, 50);
+		endPanel.add(gameOverLbl);
+		
+		JButton replayBtn = new JButton("Play Again");
+		replayBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cardLayout.show(cardPanel, "Game");
+			}
+		});
+		replayBtn.setBounds(222, 661, 175, 41);
+		endPanel.add(replayBtn);
+		
+		JButton quitBtn = new JButton("Quit");
+		quitBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(1);
+			}
+		});
+		quitBtn.setBounds(409, 661, 175, 41);
+		endPanel.add(quitBtn);
 		startPanel.setLayout(null);
 		
 		cardLayout = (CardLayout) cardPanel.getLayout();
@@ -313,9 +406,6 @@ public class GUI extends JFrame implements Runnable{
 		lblTeam_1.setBounds(400, 55, 382, 50);
 		teamPanel.add(lblTeam_1);
 		
-		gui gameboard = new gui();
-		gameboard.setBounds(12, 10, 361, 720);
-		
 		JButton btnNewButton_1 = new JButton("Start!");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -367,74 +457,8 @@ public class GUI extends JFrame implements Runnable{
 		team2TextArea.setEditable(false);
 		team2TextArea.setBounds(519, 111, 151, 171);
 		teamPanel.add(team2TextArea);
-		gamePanel.setLayout(null);
 		
 		Border blackline = BorderFactory.createLineBorder(Color.black);
-		
-//		JPanel tetrisPanel = new JPanel();
-//		tetrisPanel.setBorder(blackline);
-//		tetrisPanel.setBounds(12, 13, 450, 729);
-//		gamePanel.add(tetrisPanel);
-
-		gamePanel.add(gameboard);
-		
-		
-		JTextArea opponentTextArea = new JTextArea();
-		opponentTextArea.setEditable(false);
-		opponentTextArea.setBounds(482, 13, 288, 136);
-		gamePanel.add(opponentTextArea);
-		
-		JLabel lblNewLabel = new JLabel("Partner:");
-		lblNewLabel.setBounds(480, 162, 64, 22);
-		gamePanel.add(lblNewLabel);
-		
-		JTextArea partnerTextArea = new JTextArea();
-		partnerTextArea.setEditable(false);
-		partnerTextArea.setBounds(482, 195, 288, 32);
-		gamePanel.add(partnerTextArea);
-		
-		chatTextArea = new JTextArea();
-		chatTextArea.setEditable(false);
-		chatTextArea.setBounds(482, 338, 288, 349);
-		
-		JScrollPane chatScroll = new JScrollPane(chatTextArea);
-		chatScroll.setBounds(482, 338, 288, 349);
-		gamePanel.add(chatScroll);
-		
-		JLabel lblChatBox = new JLabel("Chat Box:");
-		lblChatBox.setBounds(482, 310, 200, 22);
-		gamePanel.add(lblChatBox);
-		
-		//for chat
-		textField_2 = new JTextField();
-		textField_2.setBounds(482, 692, 206, 50);
-		gamePanel.add(textField_2);
-		textField_2.setColumns(10);
-		textField_2.addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent e) {
-				String text = textField_2.getText();
-				int keyCode = e.getKeyCode();
-				if(keyCode == KeyEvent.VK_ENTER) {
-					out.println(text);
-					textField_2.setText("");
-				}
-			}
-		});
-		
-		JButton btnSend = new JButton("Send");
-		btnSend.setBounds(690, 693, 80, 49);
-		gamePanel.add(btnSend);
-		
-		btnSend.addMouseListener(new MouseAdapter(){
-			public void mousePressed(MouseEvent e){
-				String text = textField_2.getText();
-				out.println(text);
-				textField_2.setText("");
-        		
-        	}
-		});
-		
-		gamePanel.setFocusable(true);
 		
 		setVisible(true);
 		setFocusable(false);
