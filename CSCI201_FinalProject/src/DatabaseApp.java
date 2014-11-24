@@ -75,7 +75,7 @@ public class DatabaseApp {
 			temp = rst.getString("password");
 			System.out.println("password = "+temp);
 			System.out.println(password);
-			flag = temp.equals(password);
+			flag = temp.equals(new String(password));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
