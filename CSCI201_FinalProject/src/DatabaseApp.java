@@ -73,16 +73,14 @@ public class DatabaseApp {
 			rst = pstmt.executeQuery();
 			rst.next();
 			temp = rst.getString("password");
+			System.out.println("password = "+temp);
+			System.out.println(password);
 			flag = temp.equals(password);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(flag) {
-			return true;
-		}
-		else
-			return false;
+		return flag;
 	}
 	
 }
