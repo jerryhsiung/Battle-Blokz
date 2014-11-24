@@ -23,11 +23,11 @@ public class DatabaseApp {
 	
 //		}	
 	
-	public void addUser(String username, String password, String email) {
+	public void addUser(String username, char[] password, String email) {
 		try {
 			pstmt = conn.prepareStatement("INSERT INTO players(username, password, email, wins, numgames, sentlines) VALUES(?,?,?,?,?,?)");
 			pstmt.setString(1, username);
-			pstmt.setString(2, password);
+			pstmt.setString(2, new String(password));
 			pstmt.setString(3, email);
 			pstmt.setInt(4, 0);
 			pstmt.setInt(5, 0);
@@ -64,7 +64,7 @@ public class DatabaseApp {
 		//add code to send out an email
 	}
 	
-	public boolean verifyLogin(String username, String password) {
+	public boolean verifyLogin(String username, char[] password) {
 		boolean flag = false;
 		String temp;
 		try {

@@ -122,7 +122,7 @@ public class GUI extends JFrame implements Runnable{
 		JButton btnCreate = new JButton("Create");
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				database.addUser(textfield.getText(), new String(passwordField_1.getPassword()), textField_4.getText());
+				database.addUser(textfield.getText(), passwordField_1.getPassword(), textField_4.getText());
 				cardLayout.show(cardPanel, "Play");
 			}
 		});
@@ -244,7 +244,7 @@ public class GUI extends JFrame implements Runnable{
 		JButton btnNewButton = new JButton("Login");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				boolean success = database.verifyLogin(textField_3.getText(), new String(passwordField.getPassword()));
+				boolean success = database.verifyLogin(textField_3.getText(), passwordField.getPassword());
 				if(success){
 					System.out.println("LOGIN");
 					cardLayout.show(cardPanel, "Play");
