@@ -3,5 +3,6 @@
 	<classpathentry excluding="CSCI201_FinalProject/src/" kind="src" path=""/>
 	<classpathentry kind="src" path="CSCI201_FinalProject/src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/MySQL/mysql-connector-java-5.1.33/mysql-connector-java-5.1.33-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

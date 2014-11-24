@@ -122,7 +122,7 @@ public class GUI extends JFrame implements Runnable{
 		JButton btnCreate = new JButton("Create");
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				database.addUser(textfield.getText(), passwordField_1.toString(), textField_4.getText());
+				database.addUser(textfield.getText(), new String(passwordField_1.getPassword()), textField_4.getText());
 				cardLayout.show(cardPanel, "Play");
 			}
 		});
@@ -142,8 +142,6 @@ public class GUI extends JFrame implements Runnable{
 		lblEmail.setBounds(265, 291, 50, 16);
 		createUser.add(lblEmail);
 		
-		
-		
 		//forgot login
 		cardPanel.add(forgotUser, "Forgot");
 		forgotUser.setLayout(null);
@@ -157,6 +155,7 @@ public class GUI extends JFrame implements Runnable{
 		lblEmail_1.setBounds(263, 198, 56, 16);
 		forgotUser.add(lblEmail_1);
 		
+		//email - forgot login
 		textField_5 = new JTextField();
 		textField_5.setBounds(304, 195, 213, 22);
 		forgotUser.add(textField_5);
@@ -179,6 +178,8 @@ public class GUI extends JFrame implements Runnable{
 		});
 		btnCancel_1.setBounds(398, 255, 97, 25);
 		forgotUser.add(btnCancel_1);
+		
+		//menu with 3 options: play, help and quit
 		cardPanel.add(playPanel, "Play");
 		playPanel.setLayout(null);
 		
@@ -208,6 +209,8 @@ public class GUI extends JFrame implements Runnable{
 		});
 		button_4.setBounds(297, 418, 199, 82);
 		playPanel.add(button_4);
+		
+		//help page
 		cardPanel.add(helpPanel, "Help");
 		helpPanel.setLayout(null);
 		
@@ -221,14 +224,27 @@ public class GUI extends JFrame implements Runnable{
 		
 		cardLayout = (CardLayout) cardPanel.getLayout();
 		
-		JLabel lblTetris = new JLabel("Tetris", JLabel.CENTER);
+		//main page to login
+		JLabel lblTetris = new JLabel("BATTLE BLOKZ", JLabel.CENTER);
 		lblTetris.setFont(new Font("Tahoma", Font.BOLD, 47));
 		lblTetris.setBounds(0, 252, 782, 50);
 		startPanel.add(lblTetris);
 		
+		//password - login page
+		passwordField = new JPasswordField();
+		passwordField.setBounds(367, 400, 114, 22);
+		startPanel.add(passwordField);
+		
+		//username - login page
+		textField_3 = new JTextField();
+		textField_3.setBounds(373, 368, 108, 22);
+		startPanel.add(textField_3);
+		textField_3.setColumns(10);
+		
 		JButton btnNewButton = new JButton("Login");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				database.verifyLogin(textField_3.getText(), new String(passwordField.getPassword()));
 				cardLayout.show(cardPanel, "Play");
 			}
 		});
@@ -270,14 +286,7 @@ public class GUI extends JFrame implements Runnable{
 		lblPassword.setBounds(306, 406, 75, 16);
 		startPanel.add(lblPassword);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(367, 400, 114, 22);
-		startPanel.add(passwordField);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(373, 368, 108, 22);
-		startPanel.add(textField_3);
-		textField_3.setColumns(10);
 		teamPanel.setLayout(null);
 		
 		JLabel lblTeam = new JLabel("Team 1", JLabel.CENTER);
