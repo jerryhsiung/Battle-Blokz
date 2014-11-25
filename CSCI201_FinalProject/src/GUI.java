@@ -655,7 +655,7 @@ public class GUI extends JFrame implements Runnable{
 		btnQuit.setBounds(152, 364, 97, 25);
 		teamPanel.add(btnQuit);
 		
-		//joinging team 2
+		//joining team 2
 		btnJoin_1.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				join_team1 = false;
@@ -774,7 +774,7 @@ public class GUI extends JFrame implements Runnable{
         	else if(line.startsWith("QUIT1")){
         		//delete the username from team1 textarea
         		team1TextArea.setText("");
-        		team1TextArea.setText(line.substring(6));
+        		team1TextArea.setText(line.substring(6));   		
         		
         	}
         	else if(line.startsWith("JOIN2")){
