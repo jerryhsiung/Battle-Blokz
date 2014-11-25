@@ -33,6 +33,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
@@ -41,6 +42,7 @@ import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
 
 import tetris.gui;
+
 import javax.swing.Icon;
 import javax.swing.JComboBox;
 
@@ -60,6 +62,9 @@ public class GUI extends JFrame implements Runnable{
 	JButton btnQuit = new JButton("Quit");
 	JButton btnJoin_1 = new JButton("Join");
 	JButton btnQuit_1 = new JButton("Quit");
+	
+	Vector<String> team1roster = new Vector<String>();
+	Vector<String> team2roster = new Vector<String>();
 	
 	//database
 	DatabaseApp database;
@@ -645,7 +650,7 @@ public class GUI extends JFrame implements Runnable{
 		btnQuit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				join_team1 = false;
-				out.println("QUIT1"+username+" "+team1TextArea.getText());
+				out.println("QUIT1"+username);
 				btnJoin.setEnabled(true);
         		btnQuit.setEnabled(false);
         		btnJoin_1.setEnabled(true);
@@ -673,7 +678,7 @@ public class GUI extends JFrame implements Runnable{
 		btnQuit_1.setEnabled(false);
 		btnQuit_1.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				out.println("QUIT2"+username+" "+team2TextArea.getText());
+				out.println("QUIT2"+username);
 				btnJoin.setEnabled(true);
         		btnQuit.setEnabled(false);
         		btnJoin_1.setEnabled(true);
@@ -769,24 +774,30 @@ public class GUI extends JFrame implements Runnable{
         	else if(line.startsWith("JOIN1")){
         		String addname = line.substring(6);
         		team1TextArea.append("\n"+addname);
-        		
+        		team1roster.addElement(addname);
         	}
         	else if(line.startsWith("QUIT1")){
         		//delete the username from team1 textarea
         		team1TextArea.setText("");
-        		team1TextArea.setText(line.substring(6));   		
-        		
+        		String deletename = line.substring(6);
+        		team1roster.remove(deletename);
+        		for(int i=0; i<team1roster.size(); i++){
+        			team1TextArea.setText(team1roster.get(i));
+        		}
         	}
         	else if(line.startsWith("JOIN2")){
         		String addname = line.substring(6);
         		team2TextArea.append("\n"+addname);
-        		
+        		team2roster.addElement(addname);
         	}
         	else if(line.startsWith("QUIT2")){
         		//delete the username from team2 textarea
         		team2TextArea.setText("");
-        		team2TextArea.setText(line.substring(6));
-        		
+        		String deletename = line.substring(6);
+        		team2roster.remove(deletename);
+        		for(int i=0; i<team2roster.size(); i++){
+        			team2TextArea.setText(team2roster.get(i));
+        		}
         	}
         }
     }

@@ -76,36 +76,31 @@ public class Server {
                     }
                     else if(input.startsWith("JOIN1")){
                     	name = input.substring(6);
-                    	System.out.println("name = "+name);
+//                    	System.out.println("name = "+name);
                     	for (PrintWriter writer : writers) {
                             writer.println("JOIN1 " + name);
                         }
                     }
                     else if(input.startsWith("JOIN2")){
                     	name = input.substring(6);
-                    	System.out.println("name = "+name);
+//                    	System.out.println("name = "+name);
                     	for (PrintWriter writer : writers) {
                             writer.println("JOIN2 " + name);
                         }
                     }
                     else if(input.startsWith("QUIT1")){
-                    	int end = input.indexOf(" ");
-                    	name = input.substring(5, end);
+                    	name = input.substring(5);
                     	System.out.println("name = "+name);
-                    	int name_length = name.length();
-                    	String text = input.substring(5+name_length);
+
                     	for (PrintWriter writer : writers) {
-                            writer.println("QUIT1 " + text);
+                            writer.println("QUIT1 " + name);
                         }
                     }
                     else if(input.startsWith("QUIT2")){
-                    	int end = input.indexOf(" ");
-                    	name = input.substring(5, end);
+                    	name = input.substring(5);
                     	System.out.println("name = "+name);
-                    	int name_length = name.length();
-                    	String text = input.substring(5+name_length);
                     	for (PrintWriter writer : writers) {
-                            writer.println("QUIT2 " + text);
+                            writer.println("QUIT2 " + name);
                         }
                     }
                     else if(input.startsWith("MESSAGE")){
