@@ -827,18 +827,18 @@ public class GUI extends JFrame implements Runnable{
 				
 				if(join_team1){
 					for(int i=0; i<team2roster.size(); i++){
-						opponentTextArea.append(team2roster.get(i));
+						opponentTextArea.append(team2roster.get(i)+"\n");
 					}
 					for(int i=0; i<team1roster.size(); i++){
-						partnerTextArea.append(team1roster.get(i));
+						partnerTextArea.append(team1roster.get(i)+"\n");
 					}
 				}
 				else{
 					for(int i=0; i<team2roster.size(); i++){
-						partnerTextArea.append(team2roster.get(i));
+						partnerTextArea.append(team2roster.get(i)+"\n");
 					}
 					for(int i=0; i<team1roster.size(); i++){
-						opponentTextArea.append(team1roster.get(i));
+						opponentTextArea.append(team1roster.get(i)+"\n");
 					}
 				}
 				
@@ -859,7 +859,7 @@ public class GUI extends JFrame implements Runnable{
         		System.out.println("name passed from server = "+words[0]);
         		System.out.println("username = "+username);
         		if(username.equals(words[0])){
-        			chatTextArea.append(msg.substring(username.length()) + "\n");
+        			chatTextArea.append(msg.substring(username.length()+1) + "\n");
         		}
         	}
         }

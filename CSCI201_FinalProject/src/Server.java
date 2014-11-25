@@ -126,14 +126,15 @@ public class Server {
                     	}
                     	else if(words[0].equals("/t")){
                     		for (PrintWriter writer : writers) {
-                                writer.println("TEAM"+team+" " + name + ": " + input.substring(8));
+                                writer.println("TEAM"+team+" " + name + ": " + input.substring(11));
                             }
                     	}
                     	else{
                     		String ind_name = words[0].substring(1);
                     		System.out.println(ind_name);
                     		for (PrintWriter writer : writers) {
-                                writer.println("IND"+ind_name+" "+ name + ": " + input.substring(8));
+                    			writer.println("IND"+name+" "+ name + ": " + input.substring(9+ind_name.length()));
+                                writer.println("IND"+ind_name+" "+ name + ": " + input.substring(9+ind_name.length()));
                             }
                     	}
 //                    	for (PrintWriter writer : writers) {
