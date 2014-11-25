@@ -7,7 +7,7 @@ import java.net.Socket;
 import java.util.HashSet;
 
 
-public class ChatServer {
+public class Server {
 
     private static final int PORT = 9001;
 
@@ -47,19 +47,19 @@ public class ChatServer {
                     socket.getInputStream()));
                 out = new PrintWriter(socket.getOutputStream(), true);
 
-                while (true) {
-                    out.println("SUBMITNAME");
-                    name = in.readLine();
-                    if (name == null) {
-                        return;
-                    }
-                    synchronized (names) {
-                        if (!names.contains(name)) {
-                            names.add(name);
-                            break;
-                        }
-                    }
-                }
+//                while (true) {
+//                    out.println("SUBMITNAME");
+//                    name = in.readLine();
+//                    if (name == null) {
+//                        return;
+//                    }
+//                    synchronized (names) {
+//                        if (!names.contains(name)) {
+//                            names.add(name);
+//                            break;
+//                        }
+//                    }
+//                }
 
                 // Now that a successful name has been chosen, add the
                 // socket's print writer to the set of all writers so
@@ -74,9 +74,46 @@ public class ChatServer {
                     if (input == null) {
                         return;
                     }
-                    for (PrintWriter writer : writers) {
-                        writer.println("MESSAGE " + name + ": " + input);
+                    else if(input.startsWith("JOIN1")){
+                    	name = input.substring(6);
+                    	System.out.println("name = "+name);
+                    	for (PrintWriter writer : writers) {
+                            writer.println("JOIN1 " + name);
+                        }
                     }
+                    else if(input.startsWith("JOIN2")){
+                    	name = input.substring(6);
+                    	System.out.println("name = "+name);
+                    	for (PrintWriter writer : writers) {
+                            writer.println("JOIN2 " + name);
+                        }
+                    }
+                    else if(input.startsWith("QUIT1")){
+                    	int end = input.indexOf(" ");
+                    	name = input.substring(5, end);
+                    	System.out.println("name = "+name);
+                    	int name_length = name.length();
+                    	String text = input.substring(5+name_length);
+                    	for (PrintWriter writer : writers) {
+                            writer.println("QUIT1 " + text);
+                        }
+                    }
+                    else if(input.startsWith("QUIT2")){
+                    	int end = input.indexOf(" ");
+                    	name = input.substring(5, end);
+                    	System.out.println("name = "+name);
+                    	int name_length = name.length();
+                    	String text = input.substring(5+name_length);
+                    	for (PrintWriter writer : writers) {
+                            writer.println("QUIT2 " + text);
+                        }
+                    }
+                    else if(input.startsWith("MESSAGE")){
+                    	for (PrintWriter writer : writers) {
+                            writer.println("MESSAGE " + name + ": " + input);
+                        }
+                    }
+                    
                 }
             } catch (IOException e) {
                 System.out.println(e);

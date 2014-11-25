@@ -19,7 +19,7 @@ public class Main {
 		//run the GUI interface
 		window = new GUI(database);
 		window.run();
-		window.chat();
+		window.play();
 	}
 
 }

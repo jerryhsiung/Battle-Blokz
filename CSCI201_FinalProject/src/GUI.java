@@ -54,6 +54,12 @@ public class GUI extends JFrame implements Runnable{
 	private JTextArea chatTextArea;
 	private Font font;
 	private Map attributes;
+	JTextArea team1TextArea = new JTextArea();
+	JTextArea team2TextArea = new JTextArea();
+	JButton btnJoin = new JButton("Join");
+	JButton btnQuit = new JButton("Quit");
+	JButton btnJoin_1 = new JButton("Join");
+	JButton btnQuit_1 = new JButton("Quit");
 	
 	//database
 	DatabaseApp database;
@@ -128,6 +134,7 @@ public class GUI extends JFrame implements Runnable{
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				database.addUser(textfield.getText(), passwordField_1.getPassword(), textField_4.getText());
+				username = textfield.getText();
 				cardLayout.show(cardPanel, "Play");
 			}
 		});
@@ -609,53 +616,68 @@ public class GUI extends JFrame implements Runnable{
 		btnNewButton_1.setBounds(336, 519, 134, 70);
 		teamPanel.add(btnNewButton_1);
 		
-		JTextArea team1TextArea = new JTextArea();
+		
 		team1TextArea.setEditable(false);
 		team1TextArea.setBounds(128, 111, 151, 171);
 		teamPanel.add(team1TextArea);
 		
-		JTextArea team2TextArea = new JTextArea();
+		
 		team2TextArea.setEditable(false);
 		team2TextArea.setBounds(519, 111, 151, 171);
 		teamPanel.add(team2TextArea);
 		
 		//joining team 1
-		JButton btnJoin = new JButton("Join");
 		btnJoin.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				join_team1 = true;
-				team1TextArea.append(username+"\n");
+				out.println("JOIN1 "+username);
+				btnJoin.setEnabled(false);
+        		btnQuit.setEnabled(true);
+        		btnJoin_1.setEnabled(false);
+        		btnQuit_1.setEnabled(false);
 			}
 		});
 		btnJoin.setBounds(152, 328, 97, 25);
 		teamPanel.add(btnJoin);
 		
 		//quitting team 1
-		JButton btnQuit = new JButton("Quit");
+		btnQuit.setEnabled(false);
 		btnQuit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				join_team1 = false;
-//				team1TextArea.remove(username);
+				out.println("QUIT1"+username+" "+team1TextArea.getText());
+				btnJoin.setEnabled(true);
+        		btnQuit.setEnabled(false);
+        		btnJoin_1.setEnabled(true);
+        		btnQuit_1.setEnabled(false);
 			}
 		});
 		btnQuit.setBounds(152, 364, 97, 25);
 		teamPanel.add(btnQuit);
 		
 		//joinging team 2
-		JButton btnJoin_1 = new JButton("Join");
-		btnJoin.addActionListener(new ActionListener(){
+		btnJoin_1.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				join_team1 = false;
+				out.println("JOIN2 "+username);
+				btnJoin_1.setEnabled(false);
+        		btnQuit_1.setEnabled(true);
+        		btnJoin.setEnabled(false);
+        		btnQuit.setEnabled(false);
 			}
 		});
 		btnJoin_1.setBounds(544, 328, 97, 25);
 		teamPanel.add(btnJoin_1);
 		
 		//quitting team 2
-		JButton btnQuit_1 = new JButton("Quit");
-		btnJoin.addActionListener(new ActionListener(){
+		btnQuit_1.setEnabled(false);
+		btnQuit_1.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				
+				out.println("QUIT2"+username+" "+team2TextArea.getText());
+				btnJoin.setEnabled(true);
+        		btnQuit.setEnabled(false);
+        		btnJoin_1.setEnabled(true);
+        		btnQuit_1.setEnabled(false);
 			}
 		});
 		btnQuit_1.setBounds(544, 364, 97, 25);
@@ -735,7 +757,7 @@ public class GUI extends JFrame implements Runnable{
 
 	}
 	
-	public void chat() throws IOException {
+	public void play() throws IOException {
 
         
         // Process all messages from server, according to the protocol.
@@ -744,6 +766,28 @@ public class GUI extends JFrame implements Runnable{
         	if (line.startsWith("MESSAGE")) {
         		chatTextArea.append(line.substring(8) + "\n");
             }
+        	else if(line.startsWith("JOIN1")){
+        		String addname = line.substring(6);
+        		team1TextArea.append("\n"+addname);
+        		
+        	}
+        	else if(line.startsWith("QUIT1")){
+        		//delete the username from team1 textarea
+        		team1TextArea.setText("");
+        		team1TextArea.setText(line.substring(6));
+        		
+        	}
+        	else if(line.startsWith("JOIN2")){
+        		String addname = line.substring(6);
+        		team2TextArea.append("\n"+addname);
+        		
+        	}
+        	else if(line.startsWith("QUIT2")){
+        		//delete the username from team2 textarea
+        		team2TextArea.setText("");
+        		team2TextArea.setText(line.substring(6));
+        		
+        	}
         }
     }
 }
