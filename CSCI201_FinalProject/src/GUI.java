@@ -62,6 +62,10 @@ public class GUI extends JFrame implements Runnable{
 	BufferedReader in;
     PrintWriter out;
     
+    //username
+    String username;
+    boolean join_team1 = true;
+    
     //tetris game
     public static JLabel jl;
 	public static int lines;
@@ -525,11 +529,10 @@ public class GUI extends JFrame implements Runnable{
 			public void actionPerformed(ActionEvent arg0) {
 				boolean success = database.verifyLogin(textField_3.getText(), passwordField.getPassword());
 				if(success){
-					System.out.println("LOGIN");
+					username = textField_3.getText();
 					cardLayout.show(cardPanel, "Play");
 				}
 				else{
-					System.out.println("NOT LOGIN");
 					JOptionPane.showMessageDialog(GUI.this, 
 							"Invalid username/password", 
 							"Failed Login", 
@@ -577,7 +580,7 @@ public class GUI extends JFrame implements Runnable{
 		lblPassword.setBounds(306, 406, 75, 16);
 		startPanel.add(lblPassword);
 		
-		
+		//choosing team
 		teamPanel.setLayout(null);
 		
 		JLabel lblTeam = new JLabel("Team 1", JLabel.CENTER);
@@ -606,19 +609,55 @@ public class GUI extends JFrame implements Runnable{
 		btnNewButton_1.setBounds(336, 519, 134, 70);
 		teamPanel.add(btnNewButton_1);
 		
+		JTextArea team1TextArea = new JTextArea();
+		team1TextArea.setEditable(false);
+		team1TextArea.setBounds(128, 111, 151, 171);
+		teamPanel.add(team1TextArea);
+		
+		JTextArea team2TextArea = new JTextArea();
+		team2TextArea.setEditable(false);
+		team2TextArea.setBounds(519, 111, 151, 171);
+		teamPanel.add(team2TextArea);
+		
+		//joining team 1
 		JButton btnJoin = new JButton("Join");
+		btnJoin.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				join_team1 = true;
+				team1TextArea.append(username+"\n");
+			}
+		});
 		btnJoin.setBounds(152, 328, 97, 25);
 		teamPanel.add(btnJoin);
 		
+		//quitting team 1
 		JButton btnQuit = new JButton("Quit");
+		btnQuit.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				join_team1 = false;
+//				team1TextArea.remove(username);
+			}
+		});
 		btnQuit.setBounds(152, 364, 97, 25);
 		teamPanel.add(btnQuit);
 		
+		//joinging team 2
 		JButton btnJoin_1 = new JButton("Join");
+		btnJoin.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				join_team1 = false;
+			}
+		});
 		btnJoin_1.setBounds(544, 328, 97, 25);
 		teamPanel.add(btnJoin_1);
 		
+		//quitting team 2
 		JButton btnQuit_1 = new JButton("Quit");
+		btnJoin.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				
+			}
+		});
 		btnQuit_1.setBounds(544, 364, 97, 25);
 		teamPanel.add(btnQuit_1);
 		
@@ -632,15 +671,7 @@ public class GUI extends JFrame implements Runnable{
 		teamPanel.add(textField_1);
 		textField_1.setColumns(10);
 		
-		JTextArea team1TextArea = new JTextArea();
-		team1TextArea.setEditable(false);
-		team1TextArea.setBounds(128, 111, 151, 171);
-		teamPanel.add(team1TextArea);
 		
-		JTextArea team2TextArea = new JTextArea();
-		team2TextArea.setEditable(false);
-		team2TextArea.setBounds(519, 111, 151, 171);
-		teamPanel.add(team2TextArea);
 		
 		Border blackline = BorderFactory.createLineBorder(Color.black);
 		
