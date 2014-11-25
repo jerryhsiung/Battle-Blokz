@@ -67,7 +67,7 @@ public class Server {
                 // Now that a successful name has been chosen, add the
                 // socket's print writer to the set of all writers so
                 // this client can receive broadcast messages.
-                out.println("NAMEACCEPTED");
+//                out.println("NAMEACCEPTED");
                 writers.add(out);
 
                 // Accept messages from this client and broadcast them.
@@ -116,9 +116,29 @@ public class Server {
                     	}
                     }
                     else if(input.startsWith("MESSAGE")){
-                    	for (PrintWriter writer : writers) {
-                            writer.println("MESSAGE " + name + ": " + input);
-                        }
+                    	int team = Integer.parseInt(input.substring(7,8));
+                    	String msg = input.substring(8);
+                    	String[] words = msg.split("\\s+");
+                    	if(words[0].equals("/a")){
+                    		for (PrintWriter writer : writers) {
+                                writer.println("ALL " + name + ": " + input.substring(8));
+                            }
+                    	}
+                    	else if(words[0].equals("/t")){
+                    		for (PrintWriter writer : writers) {
+                                writer.println("TEAM"+team+" " + name + ": " + input);
+                            }
+                    	}
+                    	else{
+                    		String ind_name = words[0].substring(1);
+                    		System.out.println(ind_name);
+                    		for (PrintWriter writer : writers) {
+                                writer.println("IND"+ind_name+" "+ name + ": " + input);
+                            }
+                    	}
+//                    	for (PrintWriter writer : writers) {
+//                            writer.println("MESSAGE " + name + ": " + input);
+//                        }
                     }
                     
                 }

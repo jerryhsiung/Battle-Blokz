@@ -368,7 +368,12 @@ public class GUI extends JFrame implements Runnable{
 				String text = textField_2.getText();
 				int keyCode = e.getKeyCode();
 				if(keyCode == KeyEvent.VK_ENTER) {
-					out.println(text);
+					if(join_team1){
+						out.println("MESSAGE1"+text);
+					}
+					else{
+						out.println("MESSAGE2"+text);
+					}
 					textField_2.setText("");
 				}
 			}
@@ -381,7 +386,12 @@ public class GUI extends JFrame implements Runnable{
 		btnSend.addMouseListener(new MouseAdapter(){
 			public void mousePressed(MouseEvent e){
 				String text = textField_2.getText();
-				out.println(text);
+				if(join_team1){
+					out.println("MESSAGE1"+text);
+				}
+				else{
+					out.println("MESSAGE2"+text);
+				}
 				textField_2.setText("");
         		
         	}
@@ -779,10 +789,7 @@ public class GUI extends JFrame implements Runnable{
         // Process all messages from server, according to the protocol.
         while (true) {
             String line = in.readLine();
-        	if (line.startsWith("MESSAGE")) {
-        		chatTextArea.append(line.substring(8) + "\n");
-            }
-        	else if(line.startsWith("JOIN1")){
+            if(line.startsWith("JOIN1")){
         		String addname = line.substring(6);
         		team1TextArea.append("\n"+addname);
         		team1roster.addElement(addname);
@@ -835,6 +842,25 @@ public class GUI extends JFrame implements Runnable{
 					}
 				}
 				
+        	}
+        	else if(line.startsWith("ALL")){
+        		chatTextArea.append(line.substring(4) + "\n");
+        	}
+        	else if (line.startsWith("TEAM")) {
+        		if(line.substring(4,5).equals("1")){
+        			if(join_team1){
+        				chatTextArea.append(line.substring(6) + "\n");
+        			}
+        		}
+        	}
+        	else if (line.startsWith("IND")) {
+        		String msg = line.substring(3);
+        		String[] words = msg.split("\\s+");
+        		System.out.println("name passed from server = "+words[0]);
+        		System.out.println("username = "+username);
+        		if(username==words[0]){
+        			chatTextArea.append(msg.substring(username.length()) + "\n");
+        		}
         	}
         }
     }
