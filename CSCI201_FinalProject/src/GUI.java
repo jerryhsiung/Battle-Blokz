@@ -852,6 +852,11 @@ public class GUI extends JFrame implements Runnable{
         				chatTextArea.append(line.substring(6) + "\n");
         			}
         		}
+        		else if(line.substring(4,5).equals("2")){
+        			if(!join_team1){
+        				chatTextArea.append(line.substring(6) + "\n");
+        			}
+        		}
         	}
         	else if (line.startsWith("IND")) {
         		String msg = line.substring(3);

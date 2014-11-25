@@ -126,7 +126,7 @@ public class Server {
                     	}
                     	else if(words[0].equals("/t")){
                     		for (PrintWriter writer : writers) {
-                                writer.println("TEAM"+team+" " + name + ": " + input.substring(11));
+                                writer.println("TEAM"+team+" " + name + ": " + msg.substring(3));
                             }
                     	}
                     	else{
