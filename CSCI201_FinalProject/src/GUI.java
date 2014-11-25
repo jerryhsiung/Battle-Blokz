@@ -63,6 +63,9 @@ public class GUI extends JFrame implements Runnable{
 	JButton btnJoin_1 = new JButton("Join");
 	JButton btnQuit_1 = new JButton("Quit");
 	JButton btnNewButton_1 = new JButton("Start!");
+	gui gameboard = new gui();
+	JTextArea opponentTextArea = new JTextArea();
+	JTextArea partnerTextArea = new JTextArea();
 
 	Vector<String> team1roster = new Vector<String>();
 	Vector<String> team2roster = new Vector<String>();
@@ -76,6 +79,7 @@ public class GUI extends JFrame implements Runnable{
     
     //username
     String username;
+    boolean start = false;
     boolean join_team1 = true;
     
     //tetris game
@@ -316,7 +320,7 @@ public class GUI extends JFrame implements Runnable{
 		JPanel gamePanel = new JPanel();
 		cardPanel.add(gamePanel, "Game");
 		
-		gui gameboard = new gui();
+		
 		gameboard.setBounds(12, 10, 361, 720);
 		gamePanel.setLayout(null);
 		
@@ -328,16 +332,16 @@ public class GUI extends JFrame implements Runnable{
 		gamePanel.add(gameboard);
 		
 		
-		JTextArea opponentTextArea = new JTextArea();
+		
 		opponentTextArea.setEditable(false);
 		opponentTextArea.setBounds(482, 13, 288, 136);
 		gamePanel.add(opponentTextArea);
 		
-		JLabel lblNewLabel = new JLabel("Partner:");
+		JLabel lblNewLabel = new JLabel("My Team:");
 		lblNewLabel.setBounds(480, 162, 64, 22);
 		gamePanel.add(lblNewLabel);
 		
-		JTextArea partnerTextArea = new JTextArea();
+		
 		partnerTextArea.setEditable(false);
 		partnerTextArea.setBounds(482, 195, 288, 32);
 		gamePanel.add(partnerTextArea);
@@ -609,12 +613,10 @@ public class GUI extends JFrame implements Runnable{
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (team1roster.size() == team2roster.size() && team1roster.size() != 0) {
-					cardLayout.show(cardPanel, "Game");
-					gameboard.startGame();
+					start = true;
+					btnNewButton_1.setEnabled(false);
+					out.println("START"+team1roster.size());
 					
-					gameboard.setFocusable(true);
-					gameboard.requestFocus();
-					gameboard.requestFocusInWindow();
 				}
 				else {
 					JOptionPane.showMessageDialog(GUI.this, "Both teams need to have same number of players.", "Can't Start!", JOptionPane.INFORMATION_MESSAGE);
@@ -807,6 +809,32 @@ public class GUI extends JFrame implements Runnable{
         		for(int i=0; i<team2roster.size(); i++){
         			team2TextArea.setText(team2roster.get(i));
         		}
+        	}
+        	else if(line.startsWith("START") && start){
+        		cardLayout.show(cardPanel, "Game");
+				gameboard.startGame();
+				
+				gameboard.setFocusable(true);
+				gameboard.requestFocus();
+				gameboard.requestFocusInWindow();
+				
+				if(join_team1){
+					for(int i=0; i<team2roster.size(); i++){
+						opponentTextArea.append(team2roster.get(i));
+					}
+					for(int i=0; i<team1roster.size(); i++){
+						partnerTextArea.append(team1roster.get(i));
+					}
+				}
+				else{
+					for(int i=0; i<team2roster.size(); i++){
+						partnerTextArea.append(team2roster.get(i));
+					}
+					for(int i=0; i<team1roster.size(); i++){
+						opponentTextArea.append(team1roster.get(i));
+					}
+				}
+				
         	}
         }
     }

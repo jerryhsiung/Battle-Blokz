@@ -15,6 +15,9 @@ public class Server {
     private static HashSet<String> names = new HashSet<String>();
 
     private static HashSet<PrintWriter> writers = new HashSet<PrintWriter>();
+    
+    static int total_player;
+    static int num_start = 0;
 
     public static void main(String[] args) throws Exception {
         System.out.println("The chat server is running.");
@@ -102,6 +105,15 @@ public class Server {
                     	for (PrintWriter writer : writers) {
                             writer.println("QUIT2 " + name);
                         }
+                    }
+                    else if(input.startsWith("START")){
+                    	total_player = 2*Integer.parseInt(input.substring(5));
+                    	num_start++;
+                    	if(num_start==total_player){
+                    		for (PrintWriter writer : writers) {
+                                writer.println("START");
+                            }
+                    	}
                     }
                     else if(input.startsWith("MESSAGE")){
                     	for (PrintWriter writer : writers) {
