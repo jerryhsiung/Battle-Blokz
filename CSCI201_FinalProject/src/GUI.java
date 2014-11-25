@@ -62,7 +62,8 @@ public class GUI extends JFrame implements Runnable{
 	JButton btnQuit = new JButton("Quit");
 	JButton btnJoin_1 = new JButton("Join");
 	JButton btnQuit_1 = new JButton("Quit");
-	
+	JButton btnNewButton_1 = new JButton("Start!");
+
 	Vector<String> team1roster = new Vector<String>();
 	Vector<String> team2roster = new Vector<String>();
 	
@@ -605,19 +606,23 @@ public class GUI extends JFrame implements Runnable{
 		lblTeam_1.setBounds(400, 55, 382, 50);
 		teamPanel.add(lblTeam_1);
 		
-		JButton btnNewButton_1 = new JButton("Start!");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(cardPanel, "Game");
-				gameboard.startGame();
-				
-				gameboard.setFocusable(true);
-				gameboard.requestFocus();
-				gameboard.requestFocusInWindow();
-				
-
+				if (team1roster.size() == team2roster.size() && team1roster.size() != 0) {
+					cardLayout.show(cardPanel, "Game");
+					gameboard.startGame();
+					
+					gameboard.setFocusable(true);
+					gameboard.requestFocus();
+					gameboard.requestFocusInWindow();
+				}
+				else {
+					JOptionPane.showMessageDialog(GUI.this, "Both teams need to have same number of players.", "Can't Start!", JOptionPane.INFORMATION_MESSAGE);
+				}
+					
 			}
 		});
+		btnNewButton_1.setEnabled(false);
 		btnNewButton_1.setBounds(336, 519, 134, 70);
 		teamPanel.add(btnNewButton_1);
 		
@@ -640,6 +645,7 @@ public class GUI extends JFrame implements Runnable{
         		btnQuit.setEnabled(true);
         		btnJoin_1.setEnabled(false);
         		btnQuit_1.setEnabled(false);
+        		btnNewButton_1.setEnabled(true);
 			}
 		});
 		btnJoin.setBounds(152, 328, 97, 25);
@@ -655,6 +661,7 @@ public class GUI extends JFrame implements Runnable{
         		btnQuit.setEnabled(false);
         		btnJoin_1.setEnabled(true);
         		btnQuit_1.setEnabled(false);
+        		btnNewButton_1.setEnabled(false);
 			}
 		});
 		btnQuit.setBounds(152, 364, 97, 25);
@@ -669,6 +676,7 @@ public class GUI extends JFrame implements Runnable{
         		btnQuit_1.setEnabled(true);
         		btnJoin.setEnabled(false);
         		btnQuit.setEnabled(false);
+        		btnNewButton_1.setEnabled(true);
 			}
 		});
 		btnJoin_1.setBounds(544, 328, 97, 25);
@@ -683,6 +691,7 @@ public class GUI extends JFrame implements Runnable{
         		btnQuit.setEnabled(false);
         		btnJoin_1.setEnabled(true);
         		btnQuit_1.setEnabled(false);
+        		btnNewButton_1.setEnabled(false);
 			}
 		});
 		btnQuit_1.setBounds(544, 364, 97, 25);
