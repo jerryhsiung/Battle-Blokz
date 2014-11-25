@@ -844,7 +844,7 @@ public class GUI extends JFrame implements Runnable{
 				
         	}
         	else if(line.startsWith("ALL")){
-        		chatTextArea.append(line.substring(7) + "\n");
+        		chatTextArea.append(line.substring(4) + "\n");
         	}
         	else if (line.startsWith("TEAM")) {
         		if(line.substring(4,5).equals("1")){
@@ -858,7 +858,7 @@ public class GUI extends JFrame implements Runnable{
         		String[] words = msg.split("\\s+");
         		System.out.println("name passed from server = "+words[0]);
         		System.out.println("username = "+username);
-        		if(username==words[0]){
+        		if(username.equals(words[0])){
         			chatTextArea.append(msg.substring(username.length()) + "\n");
         		}
         	}

@@ -121,7 +121,7 @@ public class Server {
                     	String[] words = msg.split("\\s+");
                     	if(words[0].equals("/a")){
                     		for (PrintWriter writer : writers) {
-                                writer.println("ALL " + name + ": " + input.substring(8));
+                                writer.println("ALL " + name + ": " + input.substring(11));
                             }
                     	}
                     	else if(words[0].equals("/t")){
