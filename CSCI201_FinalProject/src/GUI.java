@@ -844,7 +844,7 @@ public class GUI extends JFrame implements Runnable{
 				
         	}
         	else if(line.startsWith("ALL")){
-        		chatTextArea.append(line.substring(4) + "\n");
+        		chatTextArea.append(line.substring(7) + "\n");
         	}
         	else if (line.startsWith("TEAM")) {
         		if(line.substring(4,5).equals("1")){
