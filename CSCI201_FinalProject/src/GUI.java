@@ -47,14 +47,10 @@ import javax.swing.JComboBox;
 public class GUI extends JFrame implements Runnable{
 	static JPanel cardPanel = new JPanel();
 	static CardLayout cardLayout;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField textField, textField_1, textField_2, textField_3, textField_4, textField_5;
+	private JComboBox iconCombobox;
 	private JPasswordField passwordField;
-	private JTextField textField_3;
 	private JPasswordField passwordField_1;
-	private JTextField textField_4;
-	private JTextField textField_5;
 	private JTextArea chatTextArea;
 	private Font font;
 	private Map attributes;
@@ -147,9 +143,9 @@ public class GUI extends JFrame implements Runnable{
 		lblEmail.setBounds(265, 291, 50, 16);
 		createUser.add(lblEmail);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(334, 323, 137, 79);
-		createUser.add(comboBox);
+		iconCombobox = new JComboBox();
+		iconCombobox.setBounds(334, 323, 137, 79);
+		createUser.add(iconCombobox);
 		
 		JLabel lblselectAIcon = new JLabel("<html>Select a Icon:</html>");
 		lblselectAIcon.setBounds(265, 334, 56, 48);

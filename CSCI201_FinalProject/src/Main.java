@@ -13,7 +13,7 @@ public class Main {
 		
 		//connect to database
 		Class.forName("com.mysql.jdbc.Driver");
-		conn = DriverManager.getConnection("jdbc:mysql://localhost/201_project", "root", "");
+		conn = DriverManager.getConnection("jdbc:mysql://localhost/201_project", "root", "CSci201");
 		database = new DatabaseApp(conn);
 		
 		//run the GUI interface
