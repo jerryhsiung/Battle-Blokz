@@ -126,9 +126,13 @@ public class gui extends JPanel {
 	public Font createFont() {
 		// IMPLEMENT FONT
 	    try {
-	    	Font font = Font.createFont(Font.TRUETYPE_FONT, new File("Font/digitalFont2.ttf")).deriveFont(12f);
+	    	File file = new File("CSCI201_FinalProject/src/Font/digitalFont2.ttf");
+	    	
+	    	System.out.println(file.getAbsolutePath());
+	    	
+	    	Font font = Font.createFont(Font.TRUETYPE_FONT, file).deriveFont(12f);
 		    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Font/digitalFont2.ttf")));
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, file));
 			
 			return font.deriveFont(58f);
 		} catch (FontFormatException | IOException e) {
