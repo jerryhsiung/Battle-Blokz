@@ -1,6 +1,5 @@
 package tetris;
 
-
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
@@ -14,6 +13,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -25,7 +25,7 @@ public class gui extends JPanel {
 	
 	static int tetrisBoardWidthSquare = 10; 
 	static int tetrisBoardHeightSquare = 24;
-	int tileLength = 33; 
+	int tileLength = 30; 
 //	int tetrisBoardWidth = 10*tileLength;
 //	int tetrisBoardHeight = 22*tileLength;
 	
@@ -38,17 +38,16 @@ public class gui extends JPanel {
 	static int currentPieceY = 4;
 	
 	boolean dropped = false;
-	boolean gameOver = true;
+	boolean gameOver = false;
 	
 	public int lineSent = 0;
 	public JLabel scoreBoard = new JLabel();
 	
 	Timer timer = new Timer();
 	
-	public keyboardListener kl = new keyboardListener();
-	
 	public gui() {
 		this.setBackground(Color.GRAY);
+		keyboardListener kl = new keyboardListener();
 		
 		// Initialize tetrisBoard 
 		for(int i = 0; i < tetrisBoardWidthSquare*tetrisBoardHeightSquare; i++) {
@@ -72,6 +71,12 @@ public class gui extends JPanel {
 				}
 			}
 		}, 400, 400);
+		
+//		timer.scheduleAtFixedRate(new TimerTask() {
+//			public void run() {
+//				addRandomLine();
+//			}
+//		}, 2000, 2000);
 
 		
 		scoreBoard.setAlignmentX(CENTER_ALIGNMENT);
@@ -111,26 +116,16 @@ public class gui extends JPanel {
 //		updateScore();
 	}
 	
-	public void startGame() {
-		gameOver = false;
-		this.addKeyListener(kl);
-
-	}
-	
 	public Font createFont() {
 		// IMPLEMENT FONT
-		
 	    try {
-	    	File file = new File("CSCI201_FinalProject/Font/digitalFont2.ttf");
-	    	System.out.println(file.getAbsolutePath());
-	    	Font font = Font.createFont(Font.TRUETYPE_FONT, file).deriveFont(12f);
+	    	Font font = Font.createFont(Font.TRUETYPE_FONT, new File("Font/digitalFont2.ttf")).deriveFont(12f);
 		    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, file));
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Font/digitalFont.ttf")));
 			
 			return font.deriveFont(58f);
 		} catch (FontFormatException | IOException e) {
 			// TODO Auto-generated catch block
-			
 			e.printStackTrace();
 		}
 	    
@@ -140,14 +135,6 @@ public class gui extends JPanel {
 	public void updateScore() {
 		lineSent++;
 		scoreBoard.setText("LINES - " + lineSent);
-	}
-	
-	public void gameOverLabel() {
-		scoreBoard.setText("GAME OVER");
-	}
-	
-	public int getScore() {
-		return lineSent;
 	}
 	
 	public void fillGrid(Graphics g) {
@@ -162,7 +149,7 @@ public class gui extends JPanel {
 		
 		
 	}
-	
+
 	public void drawSquare(Graphics g, int gridX, int gridY, Color c) {
 		Graphics2D g2d = (Graphics2D) g;
 		
@@ -224,7 +211,7 @@ public class gui extends JPanel {
 		}
 		
 		for(int i = 0; i < 4; i++) {
-			drawSquare(g, tempX+temp[i][0], tempY-temp[i][1], Color.GRAY);
+			drawSquare(g, tempX+temp[i][0], tempY-temp[i][1], Color.WHITE);
 		}
 		
 	}
@@ -316,6 +303,7 @@ public class gui extends JPanel {
 				}
 			}
 			if(full) {
+				System.out.println(i);
 			//	main.updateLabel();
 				updateScore();
 				
@@ -338,6 +326,56 @@ public class gui extends JPanel {
 		repaint();
 	}
 	
+	public void addRandomLine() {
+		Random rn = new Random();
+    	
+    	int[] randArray = randNumArray();
+    	
+		// REPLACE ROWS BELOW WITH ROWS ABOVE
+		for(int j = 0; j < tetrisBoardHeightSquare-1; j++) {
+			for(int x = 0; x < tetrisBoardWidthSquare; x++) {
+				tetrisBoard[j*tetrisBoardWidthSquare + x].setColor(tetrisBoard[(j+1)*tetrisBoardWidthSquare + x].getColor());
+				tetrisBoard[j*tetrisBoardWidthSquare + x].setIsFull(tetrisBoard[(j+1)*tetrisBoardWidthSquare + x].isFull());
+				tetrisBoard[(j+1)*tetrisBoardWidthSquare + x].reset();
+			}
+		}
+		
+		for(int i = tetrisBoardWidthSquare*tetrisBoardHeightSquare-10; i < tetrisBoardWidthSquare*tetrisBoardHeightSquare; i++) {
+			if(randArray[0] == i-(tetrisBoardWidthSquare*tetrisBoardHeightSquare-10)) {
+				tetrisBoard[i].reset();
+			}
+			else if(randArray[1] == i-(tetrisBoardWidthSquare*tetrisBoardHeightSquare-10)) {
+				tetrisBoard[i].reset();
+			} 
+			else if(randArray[2] == i-(tetrisBoardWidthSquare*tetrisBoardHeightSquare-10)) {
+				tetrisBoard[i].reset();
+			}
+			else if(randArray[3] == i-(tetrisBoardWidthSquare*tetrisBoardHeightSquare-10)) {
+				tetrisBoard[i].reset();
+			}
+			else {
+				tetrisBoard[i].setColor(Color.GRAY);
+				tetrisBoard[i].setIsFull(true);
+			}
+
+		}
+	}
+	
+	public int[] randNumArray() {
+		Random rn = new Random();
+
+		int[] randArray = new int[5];
+		
+		randArray[0] = rn.nextInt(10);
+		randArray[1] = rn.nextInt(10);
+		randArray[2] = rn.nextInt(10);
+		randArray[3] = rn.nextInt(10);
+		randArray[4] = rn.nextInt(10);
+		
+		
+		return randArray;
+	}
+	
 	public void nextPiece() {
 		
 		currentPiece.setRandomPiece();
@@ -356,9 +394,7 @@ public class gui extends JPanel {
 		for(int i = 0; i < attempts; i++) {
 	        if (!canMove(currentPieceX, currentPieceY+1, currentPiece)) {
 	        	System.out.println("GAME OVER");
-	        	
 	            gameOver = true;
-	            gameOverLabel();
 	            break;
 	        }
 		}

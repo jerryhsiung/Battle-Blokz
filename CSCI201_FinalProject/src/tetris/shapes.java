@@ -75,7 +75,7 @@ public class shapes {
     	Random rn = new Random();
     	
     	int randPiece = rn.nextInt(7);
-    	System.out.println(randPiece);	
+ //   	System.out.println(randPiece);	
 		setPiece(pieceList[randPiece]);
     }
     
