@@ -1,6 +1,9 @@
+import java.awt.AlphaComposite;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Graphics2D;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -26,7 +29,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.font.TextAttribute;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -86,7 +91,7 @@ public class GUI extends JFrame implements Runnable{
     public static JLabel jl;
 	public static int lines;
 	
-	public GUI(DatabaseApp database)
+	public GUI(DatabaseApp database) throws IOException
 	{
 		super("CSCI 201 Final Project");
 		setSize(800,800);
@@ -164,7 +169,112 @@ public class GUI extends JFrame implements Runnable{
 		lblEmail.setBounds(265, 291, 50, 16);
 		createUser.add(lblEmail);
 		
-		iconCombobox = new JComboBox();
+		//adding icons to combobox
+//		ImageIcon[] images = null;
+//		for (int i = 1; i <= 9; i++) {
+//			images[i] = new ImageIcon("tetris_icons/icon" + i + ".png");
+//		}
+		BufferedImage myPic = ImageIO.read(new File("tetris_icons/icon1.png"));
+	   	int imageType = true ? BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
+    	BufferedImage scaledBI = new BufferedImage(100, 100, imageType);
+    	Graphics2D g = scaledBI.createGraphics();
+    	if (true) {
+    		g.setComposite(AlphaComposite.Src);
+    	}
+    	g.drawImage(myPic, 0, 0, 100, 100, null); 
+    	g.dispose();
+    	
+    	BufferedImage myPic2 = ImageIO.read(new File("tetris_icons/icon2.png"));
+	   	int imageType2 = true ? BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
+    	BufferedImage scaledBI2 = new BufferedImage(100, 100, imageType2);
+    	Graphics2D g2 = scaledBI2.createGraphics();
+    	if (true) {
+    		g2.setComposite(AlphaComposite.Src);
+    	}
+    	g2.drawImage(myPic2, 0, 0, 100, 100, null); 
+    	g2.dispose();
+    	
+    	BufferedImage myPic3 = ImageIO.read(new File("tetris_icons/icon3.png"));
+	   	int imageType3 = true ? BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
+    	BufferedImage scaledBI3 = new BufferedImage(100, 100, imageType3);
+    	Graphics2D g3 = scaledBI3.createGraphics();
+    	if (true) {
+    		g3.setComposite(AlphaComposite.Src);
+    	}
+    	g3.drawImage(myPic3, 0, 0, 100, 100, null); 
+    	g3.dispose();
+    	
+    	BufferedImage myPic4 = ImageIO.read(new File("tetris_icons/icon4.png"));
+	   	int imageType4 = true ? BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
+    	BufferedImage scaledBI4 = new BufferedImage(100, 100, imageType4);
+    	Graphics2D g4 = scaledBI4.createGraphics();
+    	if (true) {
+    		g4.setComposite(AlphaComposite.Src);
+    	}
+    	g4.drawImage(myPic4, 0, 0, 100, 100, null); 
+    	g4.dispose();
+    	
+    	BufferedImage myPic5 = ImageIO.read(new File("tetris_icons/icon5.png"));
+	   	int imageType5 = true ? BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
+    	BufferedImage scaledBI5 = new BufferedImage(100, 100, imageType5);
+    	Graphics2D g5 = scaledBI5.createGraphics();
+    	if (true) {
+    		g5.setComposite(AlphaComposite.Src);
+    	}
+    	g5.drawImage(myPic5, 0, 0, 100, 100, null); 
+    	g5.dispose();
+    	
+    	BufferedImage myPic6 = ImageIO.read(new File("tetris_icons/icon6.png"));
+	   	int imageType6 = true ? BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
+    	BufferedImage scaledBI6 = new BufferedImage(100, 100, imageType6);
+    	Graphics2D g6 = scaledBI6.createGraphics();
+    	if (true) {
+    		g6.setComposite(AlphaComposite.Src);
+    	}
+    	g6.drawImage(myPic6, 0, 0, 100, 100, null); 
+    	g6.dispose();
+    	
+    	BufferedImage myPic7 = ImageIO.read(new File("tetris_icons/icon7.png"));
+	   	int imageType7 = true ? BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
+    	BufferedImage scaledBI7 = new BufferedImage(100, 100, imageType7);
+    	Graphics2D g7 = scaledBI7.createGraphics();
+    	if (true) {
+    		g7.setComposite(AlphaComposite.Src);
+    	}
+    	g7.drawImage(myPic7, 0, 0, 100, 100, null); 
+    	g7.dispose();
+    	
+    	BufferedImage myPic8 = ImageIO.read(new File("tetris_icons/icon8.png"));
+	   	int imageType8 = true ? BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
+    	BufferedImage scaledBI8 = new BufferedImage(100, 100, imageType8);
+    	Graphics2D g8 = scaledBI8.createGraphics();
+    	if (true) {
+    		g8.setComposite(AlphaComposite.Src);
+    	}
+    	g8.drawImage(myPic8, 0, 0, 100, 100, null); 
+    	g8.dispose();
+    	
+    	BufferedImage myPic9 = ImageIO.read(new File("tetris_icons/icon9.png"));
+	   	int imageType9 = true ? BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
+    	BufferedImage scaledBI9 = new BufferedImage(100, 100, imageType9);
+    	Graphics2D g9 = scaledBI9.createGraphics();
+    	if (true) {
+    		g9.setComposite(AlphaComposite.Src);
+    	}
+    	g9.drawImage(myPic9, 0, 0, 100, 100, null); 
+    	g9.dispose();
+    	
+		ImageIcon i1 = new ImageIcon(scaledBI);
+		ImageIcon i2 = new ImageIcon(scaledBI2);
+		ImageIcon i3 = new ImageIcon(scaledBI3);
+		ImageIcon i4 = new ImageIcon(scaledBI4);
+		ImageIcon i5 = new ImageIcon(scaledBI5);
+		ImageIcon i6 = new ImageIcon(scaledBI6);
+		ImageIcon i7 = new ImageIcon(scaledBI7);
+		ImageIcon i8 = new ImageIcon(scaledBI8);
+		ImageIcon i9 = new ImageIcon(scaledBI9);
+		Object options[] = {i1, i2, i3, i4, i5, i6, i7, i8, i9};
+		iconCombobox = new JComboBox(options);
 		iconCombobox.setBounds(334, 323, 137, 79);
 		createUser.add(iconCombobox);
 		
