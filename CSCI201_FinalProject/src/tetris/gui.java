@@ -38,16 +38,17 @@ public class gui extends JPanel {
 	static int currentPieceY = 4;
 	
 	boolean dropped = false;
-	boolean gameOver = false;
+	boolean gameOver = true;
 	
 	public int lineSent = 0;
 	public JLabel scoreBoard = new JLabel();
 	
 	Timer timer = new Timer();
+
+	public keyboardListener kl = new keyboardListener();
 	
 	public gui() {
 		this.setBackground(Color.GRAY);
-		keyboardListener kl = new keyboardListener();
 		
 		// Initialize tetrisBoard 
 		for(int i = 0; i < tetrisBoardWidthSquare*tetrisBoardHeightSquare; i++) {
@@ -72,11 +73,11 @@ public class gui extends JPanel {
 			}
 		}, 400, 400);
 		
-//		timer.scheduleAtFixedRate(new TimerTask() {
-//			public void run() {
-//				addRandomLine();
-//			}
-//		}, 2000, 2000);
+		timer.scheduleAtFixedRate(new TimerTask() {
+			public void run() {
+				addRandomLine();
+			}
+		}, 2000, 2000);
 
 		
 		scoreBoard.setAlignmentX(CENTER_ALIGNMENT);
@@ -97,6 +98,12 @@ public class gui extends JPanel {
 		this.setLayout(null);
 		setFocusable(true);
 		this.addKeyListener(kl);
+	}
+	
+	public void startGame() {
+		gameOver = false;
+		this.addKeyListener(kl);
+
 	}
 	
 	public void paintComponent(Graphics g) {
