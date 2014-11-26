@@ -128,7 +128,7 @@ public class gui extends JPanel {
 	    try {
 	    	Font font = Font.createFont(Font.TRUETYPE_FONT, new File("Font/digitalFont2.ttf")).deriveFont(12f);
 		    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Font/digitalFont.ttf")));
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Font/digitalFont2.ttf")));
 			
 			return font.deriveFont(58f);
 		} catch (FontFormatException | IOException e) {
