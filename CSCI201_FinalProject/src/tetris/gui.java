@@ -73,11 +73,11 @@ public class gui extends JPanel {
 			}
 		}, 400, 400);
 		
-		timer.scheduleAtFixedRate(new TimerTask() {
-			public void run() {
-				addRandomLine();
-			}
-		}, 2000, 2000);
+//		timer.scheduleAtFixedRate(new TimerTask() {
+//			public void run() {
+//				addRandomLine();
+//			}
+//		}, 2000, 2000);
 
 		
 		scoreBoard.setAlignmentX(CENTER_ALIGNMENT);
