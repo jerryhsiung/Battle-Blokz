@@ -899,7 +899,7 @@ public class GUI extends JFrame implements Runnable{
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-
+      updatelines();
 	}
 	
 	public void play() throws IOException {
