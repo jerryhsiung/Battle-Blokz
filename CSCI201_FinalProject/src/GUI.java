@@ -859,6 +859,7 @@ public class GUI extends JFrame implements Runnable{
 	
 	//tetris game
 	public void updatelines() {
+		System.out.println("line sent = "+gameboard.lineSent);
 		if ((gameboard.lineSent % 5 == 0) && (gameboard.lineSent != 0)) {
 			if(join_team1){
 				out.println("ADDLINE"+1);
