@@ -4,7 +4,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Vector;
 
 
 public class Server {
@@ -12,12 +14,15 @@ public class Server {
     private static final int PORT = 9001;
 
     //set of all clients' usernames
-    private static HashSet<String> names = new HashSet<String>();
+//    private static HashSet<String> names = new HashSet<String>();
 
     private static HashSet<PrintWriter> writers = new HashSet<PrintWriter>();
     
     static int total_player;
     static int num_start = 0;
+    static int num_end = 0;
+    static Vector<String> ranking = new Vector<String>();
+    static HashMap<String, Integer> records = new HashMap<String, Integer>();
 
     public static void main(String[] args) throws Exception {
         System.out.println("The server is running.");
@@ -31,7 +36,6 @@ public class Server {
         }
     }
 
-    //deal with single client and broadcast its messages
     private static class Handler extends Thread {
         private String name;
         private Socket socket;
@@ -50,28 +54,8 @@ public class Server {
                     socket.getInputStream()));
                 out = new PrintWriter(socket.getOutputStream(), true);
 
-//                while (true) {
-//                    out.println("SUBMITNAME");
-//                    name = in.readLine();
-//                    if (name == null) {
-//                        return;
-//                    }
-//                    synchronized (names) {
-//                        if (!names.contains(name)) {
-//                            names.add(name);
-//                            break;
-//                        }
-//                    }
-//                }
-
-                // Now that a successful name has been chosen, add the
-                // socket's print writer to the set of all writers so
-                // this client can receive broadcast messages.
-//                out.println("NAMEACCEPTED");
                 writers.add(out);
 
-                // Accept messages from this client and broadcast them.
-                // Ignore other clients that cannot be broadcasted to.
                 while (true) {
                     String input = in.readLine();
                     if (input == null) {
@@ -137,26 +121,59 @@ public class Server {
                                 writer.println("IND"+ind_name+" "+ name + ": " + input.substring(9+ind_name.length()));
                             }
                     	}
-//                    	for (PrintWriter writer : writers) {
-//                            writer.println("MESSAGE " + name + ": " + input);
-//                        }
                     }
                     else if(input.startsWith("ADDLINE")){
                     	String team = input.substring(7);
                     	for (PrintWriter writer : writers) {
                 			writer.println("ADDLINE"+team);
-                           
                         }
+                    }
+                    else if(input.startsWith("LINESENT")){
+                    	String[] words = input.split("\\s+");
+                    	System.out.println(words[2]+" "+words[1]);
+                    	records.put(words[2], Integer.parseInt(words[1]));
+                    	
+                    }
+                    else if(input.startsWith("END")){
+                    	System.out.println("add to ranking "+input.substring(4));
+                    	ranking.insertElementAt(input.substring(4), 0);
+                    	num_end++;
+                    	if(num_end==total_player-1){
+                    		String output;
+                    		String end_output = "";
+                    		System.out.println("record size = "+records.size());
+                    		
+                    		for(int i=0; i<records.size(); i++){
+                    			end_output += ranking.get(i);
+                    			end_output += " ";
+                    			end_output += records.get(ranking.get(i));
+                    			end_output += " ";
+                    			records.remove(ranking.get(i));
+                    		}
+                    		System.out.println("left -> "+records);
+                    		String temp = records.toString();
+                    		output = temp.substring(1,temp.indexOf("="));
+                    		output += " ";
+                    		output += temp.substring(temp.indexOf("=")+1, temp.indexOf("}"));
+                    		output += " ";
+                    		for (PrintWriter writer : writers) {
+                    			if(total_player==2){
+                    				writer.println("ENDGAME2 "+output+end_output);
+                    			}
+                    			if(total_player==4){
+                    				writer.println("ENDGAME4 "+output+end_output);
+                    			}
+                               
+                            }
+                    	}
                     }
                 }
             } catch (IOException e) {
                 System.out.println(e);
             } finally {
-                // This client is going down!  Remove its name and its print
-                // writer from the sets, and close its socket.
-                if (name != null) {
-                    names.remove(name);
-                }
+//                if (name != null) {
+//                    names.remove(name);
+//                }
                 if (out != null) {
                     writers.remove(out);
                 }

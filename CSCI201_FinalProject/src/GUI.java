@@ -71,6 +71,15 @@ public class GUI extends JFrame implements Runnable{
 	gui gameboard = new gui();
 	JTextArea opponentTextArea = new JTextArea();
 	JTextArea partnerTextArea = new JTextArea();
+	JPanel endPanel = new JPanel();
+	JLabel lblPlayer1 = new JLabel("");
+	JLabel lblPlayer2 = new JLabel("");
+	JLabel lblPlayer3 = new JLabel("");
+	JLabel lblPlayer4 = new JLabel("");
+	JLabel numLines1 = new JLabel("", JLabel.CENTER);
+	JLabel numLines2 = new JLabel("", JLabel.CENTER);
+	JLabel numLines3 = new JLabel("", JLabel.CENTER);
+	JLabel numLines4 = new JLabel("", JLabel.CENTER);
 	
 	int temp_lineSent = 0;
 
@@ -88,6 +97,7 @@ public class GUI extends JFrame implements Runnable{
     String username;
     boolean start = false;
     boolean join_team1 = true;
+    boolean end_sent = false;
     
     //tetris game
     public static JLabel jl;
@@ -290,6 +300,16 @@ public class GUI extends JFrame implements Runnable{
 		JButton btnPlay = new JButton("Play");
 		btnPlay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+//				if(team1roster.size()!=0){
+//					for(int i=0; i<team1roster.size(); i++){
+//						team1TextArea.append("\n"+team1roster.get(i));
+//					}
+//				}
+//				if(team2roster.size()!=0){
+//					for(int i=0; i<team2roster.size(); i++){
+//						team2TextArea.append("\n"+team2roster.get(i));
+//					}
+//				}
 				cardLayout.show(cardPanel, "Team");
 			}
 		});
@@ -512,7 +532,6 @@ public class GUI extends JFrame implements Runnable{
 		gamePanel.setFocusable(true);
 		
 		//game over
-		JPanel endPanel = new JPanel();
 		cardPanel.add(endPanel, "End");
 		endPanel.setLayout(null);
 		
@@ -524,7 +543,7 @@ public class GUI extends JFrame implements Runnable{
 		JButton replayBtn = new JButton("Play Again");
 		replayBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(cardPanel, "Game");
+				cardLayout.show(cardPanel, "Play");
 			}
 		});
 		replayBtn.setBounds(222, 661, 175, 41);
@@ -555,93 +574,81 @@ public class GUI extends JFrame implements Runnable{
 		lblControls.setFont(font.deriveFont(attributes));
 		endPanel.add(lblLinesSent);
 		
-		JLabel lblKo = new JLabel("KO!");
-		lblKo.setBounds(528, 105, 56, 16);
-		font = lblKo.getFont();
-		attributes = font.getAttributes();
-		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-		lblControls.setFont(font.deriveFont(attributes));
-		endPanel.add(lblKo);
+//		JLabel lblKo = new JLabel("KO!");
+//		lblKo.setBounds(528, 105, 56, 16);
+//		font = lblKo.getFont();
+//		attributes = font.getAttributes();
+//		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+//		lblControls.setFont(font.deriveFont(attributes));
+//		endPanel.add(lblKo);
 		
 		JLabel label_1 = new JLabel("1.)");
 		label_1.setBounds(196, 150, 56, 16);
-		label_1.setForeground(Color.green);
 		endPanel.add(label_1);
 		
 		JLabel label_2 = new JLabel("2.)");
 		label_2.setBounds(196, 190, 56, 16);
-		label_2.setForeground(Color.green);
 		endPanel.add(label_2);
 		
 		JLabel label_3 = new JLabel("3.)");
 		label_3.setBounds(196, 231, 56, 16);
-		label_3.setForeground(Color.red);
 		endPanel.add(label_3);
 		
 		JLabel label_4 = new JLabel("4.)");
 		label_4.setBounds(196, 269, 56, 16);
-		label_4.setForeground(Color.red);
 		endPanel.add(label_4);
 		
-		JLabel lblPlayer1 = new JLabel("");
 		lblPlayer1.setBounds(222, 150, 175, 16);
 		lblPlayer1.setForeground(Color.green);
 		endPanel.add(lblPlayer1);
 		
-		JLabel lblPlayer2 = new JLabel("");
 		lblPlayer2.setBounds(222, 190, 175, 16);
 		lblPlayer2.setForeground(Color.green);
 		endPanel.add(lblPlayer2);
 		
-		JLabel lblPlayer3 = new JLabel("");
 		lblPlayer3.setBounds(222, 231, 175, 16);
 		lblPlayer3.setForeground(Color.red);
 		endPanel.add(lblPlayer3);
 		
-		JLabel lblPlayer4 = new JLabel("");
 		lblPlayer4.setBounds(222, 269, 175, 16);
 		lblPlayer4.setForeground(Color.red);
 		endPanel.add(lblPlayer4);
-		
-		JLabel numLines1 = new JLabel("", JLabel.CENTER);
+				
 		numLines1.setBounds(409, 150, 65, 16);
 		numLines1.setForeground(Color.green);
 		endPanel.add(numLines1);
-		
-		JLabel numLines2 = new JLabel("", JLabel.CENTER);
+			
 		numLines2.setBounds(409, 190, 65, 16);
 		numLines2.setForeground(Color.green);
-		endPanel.add(numLines2);
+		endPanel.add(numLines2);	
 		
-		JLabel numLines3 = new JLabel("", JLabel.CENTER);
 		numLines3.setBounds(409, 231, 65, 16);
 		numLines3.setForeground(Color.red);
-		endPanel.add(numLines3);
+		endPanel.add(numLines3);	
 		
-		JLabel numLines4 = new JLabel("", JLabel.CENTER);
 		numLines4.setBounds(409, 269, 65, 16);
 		numLines4.setForeground(Color.red);
 		endPanel.add(numLines4);
 		
-		JLabel numKO1 = new JLabel("", SwingConstants.CENTER);
-		numKO1.setForeground(Color.GREEN);
-		numKO1.setBounds(505, 150, 65, 16);
-		endPanel.add(numKO1);
-		
-		JLabel numKO2 = new JLabel("", SwingConstants.CENTER);
-		numKO2.setForeground(Color.GREEN);
-		numKO2.setBounds(505, 190, 65, 16);
-		endPanel.add(numKO2);
-		
-		JLabel numKO3 = new JLabel("", SwingConstants.CENTER);
-		numKO3.setForeground(Color.RED);
-		numKO3.setBounds(505, 231, 65, 16);
-		endPanel.add(numKO3);
-		
-		JLabel numKO4 = new JLabel("", SwingConstants.CENTER);
-		numKO4.setForeground(Color.RED);
-		numKO4.setBounds(505, 269, 65, 16);
-		endPanel.add(numKO4);
+//		JLabel numKO1 = new JLabel("", SwingConstants.CENTER);
+//		numKO1.setForeground(Color.GREEN);
+//		numKO1.setBounds(505, 150, 65, 16);
+//		endPanel.add(numKO1);
+//		
+//		JLabel numKO2 = new JLabel("", SwingConstants.CENTER);
+//		numKO2.setForeground(Color.GREEN);
+//		numKO2.setBounds(505, 190, 65, 16);
+//		endPanel.add(numKO2);
+//		
+//		JLabel numKO3 = new JLabel("", SwingConstants.CENTER);
+//		numKO3.setForeground(Color.RED);
+//		numKO3.setBounds(505, 231, 65, 16);
+//		endPanel.add(numKO3);
+//		
+//		JLabel numKO4 = new JLabel("", SwingConstants.CENTER);
+//		numKO4.setForeground(Color.RED);
+//		numKO4.setBounds(505, 269, 65, 16);
+//		endPanel.add(numKO4);
 		startPanel.setLayout(null);
 		
 		cardLayout = (CardLayout) cardPanel.getLayout();
@@ -748,13 +755,11 @@ public class GUI extends JFrame implements Runnable{
 		});
 		btnNewButton_1.setEnabled(false);
 		btnNewButton_1.setBounds(336, 519, 134, 70);
-		teamPanel.add(btnNewButton_1);
-		
+		teamPanel.add(btnNewButton_1);	
 		
 		team1TextArea.setEditable(false);
 		team1TextArea.setBounds(128, 111, 151, 171);
-		teamPanel.add(team1TextArea);
-		
+		teamPanel.add(team1TextArea);	
 		
 		team2TextArea.setEditable(false);
 		team2TextArea.setBounds(519, 111, 151, 171);
@@ -831,23 +836,11 @@ public class GUI extends JFrame implements Runnable{
 		teamPanel.add(textField_1);
 		textField_1.setColumns(10);
 		
-		
-		
 		Border blackline = BorderFactory.createLineBorder(Color.black);
 		
 		setVisible(true);
 		setFocusable(false);
 
-//		gamePanel.requestFocus();
-//		gamePanel.requestFocusInWindow();
-//		addFocusListener(new FocusAdapter(){
-//			public void focusGained(FocusEvent ae){
-//				gameboard.requestFocus();
-//				gameboard.requestFocusInWindow();
-//				gamePanel.requestFocus();
-//				gamePanel.requestFocusInWindow();
-//			}
-//		});
 	}
 	
 	//connect IP addresses
@@ -861,29 +854,34 @@ public class GUI extends JFrame implements Runnable{
 	
 	//tetris game
 	public void updatelines() {
-		if(!gameboard.gameOver){
-			System.out.println("line sent = "+gameboard.lineSent);
+		if(gameboard.lineSent != temp_lineSent){
+			System.out.println("new line sent "+gameboard.lineSent);
+			temp_lineSent = gameboard.lineSent;
+			out.println("LINESENT "+temp_lineSent+" "+username);
+		}
+		if(!gameboard.end_game){
+//			System.out.println("line sent = "+gameboard.lineSent);
 			if ((gameboard.lineSent % 5 == 0) && (gameboard.lineSent != 0) && (gameboard.lineSent != temp_lineSent)) {
 				temp_lineSent = gameboard.lineSent;
 				if(join_team1){
 					out.println("ADDLINE"+1);
-					System.out.println("sent line from"+1);
+//					System.out.println("sent line from"+1);
 				}
 				else{
 					out.println("ADDLINE"+2);
-					System.out.println("sent line from"+2);
+//					System.out.println("sent line from"+2);
 				}
 			}
 		}
-		else{
-			cardLayout.show(cardPanel, "End");
+		else if(!end_sent){
+			out.println("END "+username);
+			end_sent = true;
 		}
 	}
 	
 	public void getConnection(){
 		// Make connection and initialize streams
 	      String serverAddress = getServerAddress();
-//	      String serverAddress = "localhost";
 	      Socket socket = null;
 		try {
 			socket = new Socket(serverAddress, 9001);
@@ -915,9 +913,6 @@ public class GUI extends JFrame implements Runnable{
 	}
 	
 	public void play() throws IOException {
-
-        
-        // Process all messages from server, according to the protocol.
         while (true) {
             String line = in.readLine();
             if(line.startsWith("JOIN1")){
@@ -949,6 +944,7 @@ public class GUI extends JFrame implements Runnable{
         		}
         	}
         	else if(line.startsWith("START") && start){
+        		out.println("LINESENT "+0+" "+username);
         		cardLayout.show(cardPanel, "Game");
 				gameboard.startGame();
 				
@@ -1001,13 +997,67 @@ public class GUI extends JFrame implements Runnable{
         	else if(line.startsWith("ADDLINE")){
         		int team = Integer.parseInt(line.substring(7));
         		if(team==1 && !join_team1){
-        			System.out.println("add line to"+2);
+//        			System.out.println("add line to"+2);
         			gameboard.addRandomLine();
         		}
         		else if(team==2 && join_team1){
-        			System.out.println("add line to"+1);
+//        			System.out.println("add line to"+1);
         			gameboard.addRandomLine();
         		}
+        	}
+        	else if(line.startsWith("ENDGAME")){
+        		if(!gameboard.end_game){
+        			out.println("END "+username);
+        		}
+        		
+        		int num = Integer.parseInt(line.substring(7,8));
+        		String[] names = line.split("\\s+");
+        		for(int i=0; i<names.length; i++){
+        			System.out.println(names[i]);
+        		}
+        		if(team1roster.contains(names[1])){
+        			lblPlayer1.setForeground(Color.green);
+        			numLines1.setForeground(Color.green);
+        		}
+        		else{
+        			lblPlayer1.setForeground(Color.red);
+        			numLines1.setForeground(Color.red);
+        		}
+        		if(team1roster.contains(names[3])){
+        			lblPlayer2.setForeground(Color.green);
+        			numLines2.setForeground(Color.green);
+        		}
+        		else{
+        			lblPlayer2.setForeground(Color.red);
+        			numLines2.setForeground(Color.red);
+        		}
+        		lblPlayer1.setText(names[1]);
+        		numLines1.setText(names[2]);
+        		lblPlayer2.setText(names[3]);
+        		numLines2.setText(names[4]);
+        		if(num==4){
+        			if(team1roster.contains(names[5])){
+            			lblPlayer3.setForeground(Color.green);
+            			numLines3.setForeground(Color.green);
+            		}
+            		else{
+            			lblPlayer3.setForeground(Color.red);
+            			numLines3.setForeground(Color.red);
+            		}
+        			if(team1roster.contains(names[7])){
+            			lblPlayer4.setForeground(Color.green);
+            			numLines4.setForeground(Color.green);
+            		}
+            		else{
+            			lblPlayer4.setForeground(Color.red);
+            			numLines4.setForeground(Color.red);
+            		}
+        			lblPlayer3.setText(names[5]);
+        			numLines3.setText(names[6]);
+        			lblPlayer4.setText(names[7]);
+        			numLines4.setText(names[8]);
+        		}
+        		cardLayout.show(cardPanel, "End");
         	}
         }
     }

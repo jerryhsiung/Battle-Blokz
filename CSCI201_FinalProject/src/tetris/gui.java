@@ -38,7 +38,8 @@ public class gui extends JPanel {
 	static int currentPieceY = 4;
 	
 	boolean dropped = false;
-	public boolean gameOver = false;
+	public boolean gameOver = true;
+	public boolean end_game = false;
 	
 	public int lineSent = 0;
 	public JLabel scoreBoard = new JLabel();
@@ -407,6 +408,7 @@ public class gui extends JPanel {
 	        if (!canMove(currentPieceX, currentPieceY+1, currentPiece)) {
 	        	System.out.println("GAME OVER");
 	            gameOver = true;
+	            end_game = true;
 	            break;
 	        }
 		}

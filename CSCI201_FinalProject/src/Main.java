@@ -39,7 +39,7 @@ public class Main {
 
 			@Override
 			public void run() {
-				System.out.println("timer");
+//				System.out.println("timer");
 				window.updatelines();
 			}
 		},
