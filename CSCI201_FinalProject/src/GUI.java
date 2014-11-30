@@ -859,7 +859,7 @@ public class GUI extends JFrame implements Runnable{
 		if(!gameboard.end_game){
 //			System.out.println("line sent = "+gameboard.lineSent);
 			if ((gameboard.lineSent % 5 == 0) && (gameboard.lineSent != 0) && (gameboard.lineSent != temp_lineSent)) {
-//				temp_lineSent = gameboard.lineSent;
+				temp_lineSent = gameboard.lineSent;
 				if(join_team1){
 					out.println("ADDLINE"+1);
 					System.out.println("sent line from"+1);
