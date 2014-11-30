@@ -858,9 +858,15 @@ public class GUI extends JFrame implements Runnable{
     }
 	
 	//tetris game
-	public static void updateLabel() {
-		lines++;
-		jl.setText("Lines Cleared - " + lines);
+	public void updatelines() {
+		if ((gameboard.lineSent % 5 == 0) && (gameboard.lineSent != 0)) {
+			if(join_team1){
+				out.println("ADDLINE"+1);
+			}
+			else{
+				out.println("ADDLINE"+2);
+			}
+		}
 	}
 	
 	public void run() {
@@ -975,6 +981,15 @@ public class GUI extends JFrame implements Runnable{
         		System.out.println("username = "+username);
         		if(username.equals(words[0])){
         			chatTextArea.append(msg.substring(username.length()+1) + "\n");
+        		}
+        	}
+        	else if(line.startsWith("ADDLINE")){
+        		int team = Integer.parseInt(line.substring(7));
+        		if(team==1 && !join_team1){
+        			gameboard.addRandomLine();
+        		}
+        		else if(team==2 && join_team1){
+        			gameboard.addRandomLine();
         		}
         	}
         }

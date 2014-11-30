@@ -141,7 +141,13 @@ public class Server {
 //                            writer.println("MESSAGE " + name + ": " + input);
 //                        }
                     }
-                    
+                    else if(input.startsWith("ADDLINE")){
+                    	String team = input.substring(7);
+                    	for (PrintWriter writer : writers) {
+                			writer.println("ADDLINE"+team);
+                           
+                        }
+                    }
                 }
             } catch (IOException e) {
                 System.out.println(e);
