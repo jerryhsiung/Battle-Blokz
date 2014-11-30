@@ -31,6 +31,7 @@ public class Main {
 		}
 		window = new GUI(database);
 		window.getConnection();
+//		window.start();
 //		window.run();
 		
 		

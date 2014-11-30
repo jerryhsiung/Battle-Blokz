@@ -71,6 +71,8 @@ public class GUI extends JFrame implements Runnable{
 	gui gameboard = new gui();
 	JTextArea opponentTextArea = new JTextArea();
 	JTextArea partnerTextArea = new JTextArea();
+	
+	int temp_lineSent = 0;
 
 	Vector<String> team1roster = new Vector<String>();
 	Vector<String> team2roster = new Vector<String>();
@@ -860,7 +862,8 @@ public class GUI extends JFrame implements Runnable{
 	//tetris game
 	public void updatelines() {
 		System.out.println("line sent = "+gameboard.lineSent);
-		if ((gameboard.lineSent % 5 == 0) && (gameboard.lineSent != 0)) {
+		if ((gameboard.lineSent % 5 == 0) && (gameboard.lineSent != 0) && (gameboard.lineSent != temp_lineSent)) {
+			temp_lineSent = gameboard.lineSent;
 			if(join_team1){
 				out.println("ADDLINE"+1);
 				System.out.println("sent line from"+1);
