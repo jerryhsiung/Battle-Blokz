@@ -146,7 +146,7 @@ public class gui extends JPanel {
 	public void updateScore() {
 		lineSent++;
 		scoreBoard.setText("LINES - " + lineSent);
-		if (lineSent == 5) {
+		if ((lineSent % 5 == 0) && (lineSent != 0)) {
 			addRandomLine();
 		}
 	}
