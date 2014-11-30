@@ -2,6 +2,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -30,6 +32,16 @@ public class Main {
 		window = new GUI(database);
 		window.run();
 		window.play();
+		
+		new Timer().scheduleAtFixedRate(new TimerTask(){
+
+			@Override
+			public void run() {
+				window.updatelines();
+			}
+		},
+		50, 50
+		);
 	}
 
 }
