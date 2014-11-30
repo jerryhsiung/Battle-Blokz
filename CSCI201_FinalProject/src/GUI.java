@@ -854,29 +854,33 @@ public class GUI extends JFrame implements Runnable{
 	
 	//tetris game
 	public void updatelines() {
-		if(gameboard.lineSent != temp_lineSent){
-			System.out.println("new line sent "+gameboard.lineSent);
-			temp_lineSent = gameboard.lineSent;
-			out.println("LINESENT "+temp_lineSent+" "+username);
-		}
+		
+		
 		if(!gameboard.end_game){
 //			System.out.println("line sent = "+gameboard.lineSent);
 			if ((gameboard.lineSent % 5 == 0) && (gameboard.lineSent != 0) && (gameboard.lineSent != temp_lineSent)) {
-				temp_lineSent = gameboard.lineSent;
+//				temp_lineSent = gameboard.lineSent;
 				if(join_team1){
 					out.println("ADDLINE"+1);
-//					System.out.println("sent line from"+1);
+					System.out.println("sent line from"+1);
 				}
 				else{
 					out.println("ADDLINE"+2);
-//					System.out.println("sent line from"+2);
+					System.out.println("sent line from"+2);
 				}
+			}
+			else if(gameboard.lineSent != temp_lineSent){
+//				System.out.println("new line sent "+gameboard.lineSent);
+				temp_lineSent = gameboard.lineSent;
+				out.println("LINESENT "+temp_lineSent+" "+username);
+				
 			}
 		}
 		else if(!end_sent){
 			out.println("END "+username);
 			end_sent = true;
 		}
+		
 	}
 	
 	public void getConnection(){
@@ -997,12 +1001,15 @@ public class GUI extends JFrame implements Runnable{
         	else if(line.startsWith("ADDLINE")){
         		int team = Integer.parseInt(line.substring(7));
         		if(team==1 && !join_team1){
-//        			System.out.println("add line to"+2);
+        			System.out.println("add line to"+2);
         			gameboard.addRandomLine();
         		}
         		else if(team==2 && join_team1){
-//        			System.out.println("add line to"+1);
+        			System.out.println("add line to"+1);
         			gameboard.addRandomLine();
+        		}
+        		else{
+        			System.out.println("adding line?");
         		}
         	}
         	else if(line.startsWith("ENDGAME")){
