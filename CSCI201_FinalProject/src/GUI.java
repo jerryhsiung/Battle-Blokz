@@ -872,33 +872,38 @@ public class GUI extends JFrame implements Runnable{
 		}
 	}
 	
-	public void run() {
+	public void getConnection(){
 		// Make connection and initialize streams
-      String serverAddress = getServerAddress();
-//      String serverAddress = "localhost";
-      Socket socket = null;
-	try {
-		socket = new Socket(serverAddress, 9001);
-	} catch (UnknownHostException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+	      String serverAddress = getServerAddress();
+//	      String serverAddress = "localhost";
+	      Socket socket = null;
+		try {
+			socket = new Socket(serverAddress, 9001);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	      try {
+			in = new BufferedReader(new InputStreamReader(
+			      socket.getInputStream()));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	      try {
+			out = new PrintWriter(socket.getOutputStream(), true);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-      try {
-		in = new BufferedReader(new InputStreamReader(
-		      socket.getInputStream()));
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-      try {
-		out = new PrintWriter(socket.getOutputStream(), true);
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+	
+	public void run() {
+		System.out.println("running sending lines");
+		updatelines();
 	}
 	
 	public void play() throws IOException {

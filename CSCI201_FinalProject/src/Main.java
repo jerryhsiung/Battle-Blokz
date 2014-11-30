@@ -30,18 +30,21 @@ public class Main {
 			e.printStackTrace();
 		}
 		window = new GUI(database);
-		window.run();
-		window.play();
+		window.getConnection();
+//		window.run();
+		
 		
 		new Timer().scheduleAtFixedRate(new TimerTask(){
 
 			@Override
 			public void run() {
+				System.out.println("timer");
 				window.updatelines();
 			}
 		},
-		50, 50
+		100, 100
 		);
+		window.play();
 	}
 
 }
