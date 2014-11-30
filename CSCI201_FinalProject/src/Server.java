@@ -20,7 +20,7 @@ public class Server {
     static int num_start = 0;
 
     public static void main(String[] args) throws Exception {
-        System.out.println("The chat server is running.");
+        System.out.println("The server is running.");
         ServerSocket listener = new ServerSocket(PORT);
         try {
             while (true) {
