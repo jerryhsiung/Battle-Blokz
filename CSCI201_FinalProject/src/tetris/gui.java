@@ -126,7 +126,7 @@ public class gui extends JPanel {
 	public Font createFont() {
 		// IMPLEMENT FONT
 	    try {
-	    	File file = new File("CSCI201_FinalProject/src/Font/digitalFont2.ttf");
+	    	File file = new File("src/Font/digitalFont2.ttf");
 	    	
 	    	System.out.println(file.getAbsolutePath());
 	    	
@@ -146,6 +146,9 @@ public class gui extends JPanel {
 	public void updateScore() {
 		lineSent++;
 		scoreBoard.setText("LINES - " + lineSent);
+		if (lineSent == 5) {
+			addRandomLine();
+		}
 	}
 	
 	public void fillGrid(Graphics g) {
