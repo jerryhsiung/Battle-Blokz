@@ -38,7 +38,7 @@ public class gui extends JPanel {
 	static int currentPieceY = 4;
 	
 	boolean dropped = false;
-	boolean gameOver = true;
+	public boolean gameOver = true;
 	
 	public int lineSent = 0;
 	public JLabel scoreBoard = new JLabel();
