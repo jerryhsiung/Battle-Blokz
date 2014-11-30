@@ -861,16 +861,16 @@ public class GUI extends JFrame implements Runnable{
 			if ((gameboard.lineSent % 5 == 0) && (gameboard.lineSent != 0) && (gameboard.lineSent != temp_lineSent)) {
 				temp_lineSent = gameboard.lineSent;
 				if(join_team1){
-					out.println("ADDLINE"+1);
+					out.println("ADDLINE"+1+" "+temp_lineSent+" "+username);
 					System.out.println("sent line from"+1);
 				}
 				else{
-					out.println("ADDLINE"+2);
+					out.println("ADDLINE"+2+" "+temp_lineSent+" "+username);
 					System.out.println("sent line from"+2);
 				}
 			}
 			else if(gameboard.lineSent != temp_lineSent){
-//				System.out.println("new line sent "+gameboard.lineSent);
+				System.out.println("new line sent "+gameboard.lineSent);
 				temp_lineSent = gameboard.lineSent;
 				out.println("LINESENT "+temp_lineSent+" "+username);
 				
@@ -1007,9 +1007,6 @@ public class GUI extends JFrame implements Runnable{
         		else if(team==2 && join_team1){
         			System.out.println("add line to"+1);
         			gameboard.addRandomLine();
-        		}
-        		else{
-        			System.out.println("adding line?");
         		}
         	}
         	else if(line.startsWith("ENDGAME")){

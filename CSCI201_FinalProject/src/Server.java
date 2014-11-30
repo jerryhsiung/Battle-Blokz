@@ -123,7 +123,9 @@ public class Server {
                     	}
                     }
                     else if(input.startsWith("ADDLINE")){
-                    	String team = input.substring(7);
+                    	String team = input.substring(7, 8);
+                    	String[] words = input.split("\\s+");
+                    	records.put(words[2], Integer.parseInt(words[1]));
                     	for (PrintWriter writer : writers) {
                 			writer.println("ADDLINE"+team);
                         }
