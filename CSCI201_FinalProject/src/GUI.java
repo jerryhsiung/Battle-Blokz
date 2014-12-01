@@ -98,6 +98,7 @@ public class GUI extends JFrame implements Runnable{
     boolean start = false;
     boolean join_team1 = true;
     boolean end_sent = false;
+    boolean first_game = true;
     
     //tetris game
     public static JLabel jl;
@@ -950,7 +951,13 @@ public class GUI extends JFrame implements Runnable{
         	else if(line.startsWith("START") && start){
         		out.println("LINESENT "+0+" "+username);
         		cardLayout.show(cardPanel, "Game");
-				gameboard.startGame();
+        		if(first_game){
+        			gameboard.startGame();
+        			first_game = false;
+        		}
+        		else{
+        			gameboard.restart();
+        		}
 				
 				gameboard.setFocusable(true);
 				gameboard.requestFocus();
@@ -972,7 +979,7 @@ public class GUI extends JFrame implements Runnable{
 						opponentTextArea.append(team1roster.get(i)+"\n");
 					}
 				}
-				gameboard.restart();
+				
         	}
         	else if(line.startsWith("ALL")){
         		chatTextArea.append(line.substring(4) + "\n");
