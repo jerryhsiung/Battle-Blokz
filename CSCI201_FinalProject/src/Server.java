@@ -147,11 +147,12 @@ public class Server {
                     		System.out.println("record size = "+records.size());
                     		
                     		for(int i=0; i<records.size(); i++){
+                    			System.out.println(ranking.get(0));
                     			end_output += ranking.get(0);
                     			end_output += " ";
-                    			end_output += records.get(ranking.get(i));
+                    			end_output += records.get(ranking.get(0));
                     			end_output += " ";
-                    			records.remove(ranking.get(i));
+                    			records.remove(ranking.get(0));
                     		}
                     		System.out.println("left -> "+records);
                     		String temp = records.toString();
