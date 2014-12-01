@@ -972,7 +972,7 @@ public class GUI extends JFrame implements Runnable{
 						opponentTextArea.append(team1roster.get(i)+"\n");
 					}
 				}
-				
+				gameboard.restart();
         	}
         	else if(line.startsWith("ALL")){
         		chatTextArea.append(line.substring(4) + "\n");
