@@ -857,7 +857,7 @@ public class GUI extends JFrame implements Runnable{
         return JOptionPane.showInputDialog(
             this,
             "Enter IP Address of the Server:",
-            "Welcome to the Chatter",
+            "Welcome to BATTLE BLOKZ",
             JOptionPane.QUESTION_MESSAGE);
     }
 	
