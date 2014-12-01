@@ -551,6 +551,11 @@ public class GUI extends JFrame implements Runnable{
 				btnQuit_1.setEnabled(false);
 				team1TextArea.setText("");
 				team2TextArea.setText("");
+				
+				partnerTextArea.setText("");
+				opponentTextArea.setText("");
+//				chatTextArea.setText("");
+				
 				team1roster.clear();
 				team2roster.clear();
 				btnNewButton_1.setEnabled(false);
