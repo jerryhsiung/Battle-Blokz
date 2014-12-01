@@ -510,6 +510,10 @@ public class GUI extends JFrame implements Runnable{
 					}
 					textField_2.setText("");
 				}
+				else if(keyCode == KeyEvent.VK_ESCAPE) {
+					gameboard.requestFocus();
+					gameboard.requestFocusInWindow();
+				}
 			}
 		});
 		
