@@ -145,7 +145,7 @@ public class GUI extends JFrame implements Runnable{
 		//email - create user
 		textField_4 = new JTextField();
 		textField_4.setBounds(305, 288, 165, 22);
-		createUser.add(textField_4);
+//		createUser.add(textField_4);
 		textField_4.setColumns(10);
 		
 		//password - create user
@@ -180,7 +180,7 @@ public class GUI extends JFrame implements Runnable{
 		
 		JLabel lblEmail = new JLabel("Email:");
 		lblEmail.setBounds(265, 291, 50, 16);
-		createUser.add(lblEmail);
+//		createUser.add(lblEmail);
 		
 		//adding icons to combobox
 //		ImageIcon[] images = null;
