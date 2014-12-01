@@ -147,7 +147,7 @@ public class Server {
                     		System.out.println("record size = "+records.size());
                     		
                     		for(int i=0; i<records.size(); i++){
-                    			end_output += ranking.get(i);
+                    			end_output += ranking.get(0);
                     			end_output += " ";
                     			end_output += records.get(ranking.get(i));
                     			end_output += " ";
