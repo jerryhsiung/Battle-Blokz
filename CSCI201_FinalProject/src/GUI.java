@@ -543,6 +543,15 @@ public class GUI extends JFrame implements Runnable{
 		JButton replayBtn = new JButton("Play Again");
 		replayBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				btnJoin.setEnabled(true);
+				btnQuit.setEnabled(false);
+				btnJoin_1.setEnabled(true);
+				btnQuit_1.setEnabled(false);
+				team1TextArea.setText("");
+				team2TextArea.setText("");
+				team1roster.clear();
+				team2roster.clear();
+				btnNewButton_1.setEnabled(false);
 				cardLayout.show(cardPanel, "Play");
 			}
 		});
@@ -825,16 +834,6 @@ public class GUI extends JFrame implements Runnable{
 		});
 		btnQuit_1.setBounds(544, 364, 97, 25);
 		teamPanel.add(btnQuit_1);
-		
-		textField = new JTextField();
-		textField.setBounds(519, 297, 151, 25);
-		teamPanel.add(textField);
-		textField.setColumns(10);
-		
-		textField_1 = new JTextField();
-		textField_1.setBounds(127, 297, 151, 25);
-		teamPanel.add(textField_1);
-		textField_1.setColumns(10);
 		
 		Border blackline = BorderFactory.createLineBorder(Color.black);
 		
