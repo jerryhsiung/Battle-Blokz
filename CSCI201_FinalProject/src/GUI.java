@@ -436,7 +436,7 @@ public class GUI extends JFrame implements Runnable{
 		lblDropBlock.setBounds(324, 547, 75, 16);
 		helpPanel.add(lblDropBlock);
 		
-		JLabel lblChatInstruction = new JLabel("<html>Note: To chat to all players in the game type \"/a \" before you write your message. To chat with your team, type \"/t \" before your message. To chat with an individual, type \"/username\" before your message. </html>");
+		JLabel lblChatInstruction = new JLabel("<html>Note: To chat to all players in the game type \"/a \" before you write your message. To chat with your team, type \"/t \" before your message. To chat with an individual, type \"/username\" before your message. To return to gameplay, press the esc button.</html>");
 		lblChatInstruction.setBounds(203, 577, 298, 59);
 		lblChatInstruction.setSize(350,100);
 		helpPanel.add(lblChatInstruction);
