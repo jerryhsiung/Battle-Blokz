@@ -374,6 +374,20 @@ public class gui extends JPanel {
 		}
 	}
 	
+	public void restart() {
+		for(int i = 0; i < tetrisBoard.length; i++) {
+			tetrisBoard[i].reset();
+		}
+		
+		gameOver = false;
+		resetScore();
+
+	}
+	
+	public void resetScore() {
+		lineSent = 0;
+	}
+	
 	public int[] randNumArray() {
 		Random rn = new Random();
 
