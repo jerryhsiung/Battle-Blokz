@@ -97,6 +97,7 @@ public class Server {
                     		for (PrintWriter writer : writers) {
                                 writer.println("START");
                             }
+                    		num_end = 0;
                     	}
                     }
                     else if(input.startsWith("MESSAGE")){
@@ -154,6 +155,7 @@ public class Server {
                     		}
                     		System.out.println("left -> "+records);
                     		String temp = records.toString();
+                    		records.clear();
                     		output = temp.substring(1,temp.indexOf("="));
                     		output += " ";
                     		output += temp.substring(temp.indexOf("=")+1, temp.indexOf("}"));
@@ -165,7 +167,8 @@ public class Server {
                     			if(total_player==4){
                     				writer.println("ENDGAME4 "+output+end_output);
                     			}
-                               
+                    			num_start = 0;
+                    			ranking.clear();
                             }
                     	}
                     }

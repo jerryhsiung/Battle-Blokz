@@ -409,6 +409,7 @@ public class gui extends JPanel {
 	        	System.out.println("GAME OVER");
 	            gameOver = true;
 	            end_game = true;
+	            lineSent = 0;
 	            break;
 	        }
 		}

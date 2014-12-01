@@ -1061,6 +1061,7 @@ public class GUI extends JFrame implements Runnable{
         			numLines4.setText(names[8]);
         		}
         		cardLayout.show(cardPanel, "End");
+        		temp_lineSent = 0;
         	}
         }
     }
