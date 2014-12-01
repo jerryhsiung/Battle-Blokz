@@ -392,7 +392,7 @@ public class GUI extends JFrame implements Runnable{
 		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
 		lblRules.setFont(font.deriveFont(attributes));
 		
-		JLabel ruleDescription = new JLabel("<html>Each team has one or two players on each to start, as the rules of the game is to beat your opponent(s) by sending unclearable lines with the every 20 lines you complete in your game. Players are allow to communicate with everyone in the game or just with their teammate. </html");
+		JLabel ruleDescription = new JLabel("<html> Each team must have either one or two players to start the game. The goal is to clear exactly a multiple of five lines so that gray lines are sent to your opponents. You can clear gray lines by filling in the spaces. Players are allowed to communicate with everyone in the game, with your team, or with an individual. </html");
 		ruleDescription.setBounds(139, 147, 504, 71);
 		helpPanel.add(ruleDescription);
 		
@@ -435,8 +435,9 @@ public class GUI extends JFrame implements Runnable{
 		lblDropBlock.setBounds(324, 547, 75, 16);
 		helpPanel.add(lblDropBlock);
 		
-		JLabel lblChatInstruction = new JLabel("<html>Note: To chat to all players in the game type \"/a \" before you write your message, and to chat with partner, type \"/t \" before your message.</html>");
+		JLabel lblChatInstruction = new JLabel("<html>Note: To chat to all players in the game type \"/a \" before you write your message. To chat with your team, type \"/t \" before your message. To chat with an individual, type \"/username\" before your message. </html>");
 		lblChatInstruction.setBounds(203, 577, 298, 59);
+		lblChatInstruction.setSize(350,100);
 		helpPanel.add(lblChatInstruction);
 		
 		JButton btnBack = new JButton("Back");
@@ -445,7 +446,7 @@ public class GUI extends JFrame implements Runnable{
 				cardLayout.show(cardPanel, "Play");
 			}
 		});
-		btnBack.setBounds(504, 666, 97, 25);
+		btnBack.setBounds(306, 680, 97, 25);
 		helpPanel.add(btnBack);
 		
 		cardPanel.add(teamPanel, "Team");
