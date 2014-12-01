@@ -558,7 +558,7 @@ public class GUI extends JFrame implements Runnable{
 				
 				partnerTextArea.setText("");
 				opponentTextArea.setText("");
-//				chatTextArea.setText("");
+				chatTextArea.setText("");
 				
 				team1roster.clear();
 				team2roster.clear();
