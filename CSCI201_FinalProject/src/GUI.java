@@ -713,11 +713,10 @@ public class GUI extends JFrame implements Runnable{
 		JButton button = new JButton("Quit");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//System.exit(1);
-				cardLayout.show(cardPanel, "End");
+				System.exit(1);
 			}
 		});
-		button.setBounds(306, 597, 175, 41);
+		button.setBounds(306, 543, 175, 41);
 		startPanel.add(button);
 		
 		JButton button_1 = new JButton("Create New User");
@@ -736,7 +735,7 @@ public class GUI extends JFrame implements Runnable{
 			}
 		});
 		button_2.setBounds(306, 543, 175, 41);
-		startPanel.add(button_2);
+//		startPanel.add(button_2);
 		
 		JLabel lblUser = new JLabel("Username:");
 		lblUser.setBounds(306, 371, 75, 16);
